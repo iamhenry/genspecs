@@ -10,7 +10,7 @@
 
 Create a detailed task plan for developing a software feature, ensuring the following structure:
 
-1. Divide the feature into milestones
+1. Divide the feature into milestones (Ensure to follow the "Phases" outlined in "roadmap.md")
    - Each milestone should represent a significant deliverable or phase of the project.
    - Include a clear objective describing the goal of the milestone and acceptance criteria defining what qualifies the milestone as complete.
 2. Break down each milestone into tasks
