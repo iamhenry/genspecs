@@ -6,6 +6,10 @@
 - Decompose it into a structured implementation plan using the principles of Vertical Slice, Incremental Development, and MVP.
 - Prioritize building a simple, functional prototype first and incrementally refine it toward the final vision.
 
+# Requirements
+
+- roadmap.md
+
 # Instructions
 
 Create a detailed task plan for developing a software feature, ensuring the following structure:
