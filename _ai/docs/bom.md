@@ -12,13 +12,12 @@
   - Step-by-step document generation
   - Document preview interface
   - Document acceptance/rejection mechanism
-- Document editing system
-  - Chat-based modification interface
+- Document preview system
+  - Text-based preview interface
   - Document regeneration capability
 - Document management
   - Individual document download
-  - Bulk ZIP download functionality
-  - Document list view with edit/download options
+  - Document list view with regenerate/download options
 
 ### 1.2 Supporting Features
 - Progress persistence system
@@ -27,7 +26,7 @@
 - Loading states and indicators
 - Two-column layout system
   - Vertical progress stepper
-  - Document preview pane
+  - Document text preview pane
 - OpenRouter API key management
 - Error handling system
 - Document version control
@@ -46,10 +45,9 @@
 - Vercel AI SDK for LLM integration
 
 ### 2.3 Utilities
-- ZIP file generation utility
-- Markdown processing system
 - Local storage management utility
 - API key validation system
+- Markdown processing system
 
 ## 3. Dependencies
 
@@ -59,11 +57,9 @@
 - Tailwind CSS
 - Shadcn UI component library
 - Vercel AI SDK
-- Novel.sh (markdown editor)
 
 ### 3.2 Third-party Dependencies
 - OpenRouter API integration
-- File system utilities for ZIP creation
 - Markdown parsing/rendering libraries
 - State management solution (e.g., Zustand/Jotai)
 
@@ -80,15 +76,14 @@
    - Document preview
    - Acceptance/rejection mechanism
 
-3. Document Modification System
-   - Chat interface for modifications
+3. Document Preview System
+   - Text-based preview interface
    - Real-time preview updates
    - Document regeneration capability
 
 4. Document Management
    - Document list view
-   - Individual document actions (edit/download)
-   - Bulk download functionality
+   - Individual document actions (regenerate/download)
 
 5. State Persistence
    - Local storage integration

@@ -1,7 +1,7 @@
 # Development Roadmap
 
 ## Phase 1: Static UI Implementation (Complexity: 2)
-Duration: 1-2 weeks
+Duration: 1 week
 
 ### Milestone 1.1: Project Setup
 - Initialize Next.js project with TypeScript
@@ -20,36 +20,34 @@ Duration: 1-2 weeks
 
 ### Milestone 1.3: Document Workflow UI
 - Build two-column layout structure
-- Create vertical progress stepper component
-- Implement document preview area
+  - Left column: Vertical progress stepper
+  - Right column: Document text preview
+- Implement document preview area with markdown rendering
 - Add skeleton loading states
-- Design chat interface for document modifications
 
-## Phase 2: Frontend Core Implementation (Complexity: 4)
-Duration: 2-3 weeks
+## Phase 2: Frontend Core Implementation (Complexity: 3)
+Duration: 1-2 weeks
 
 ### Milestone 2.1: State Management
-- Implement state management system
-- Set up local storage persistence
+- Implement local storage based state management
+- Set up form data validation logic
 - Create document version tracking system
-- Implement form data validation logic
 
 ### Milestone 2.2: Document Generation Flow
 - Create document preview system
 - Implement markdown rendering
 - Build document acceptance/rejection flow
 - Add document regeneration functionality
-- Implement chat-based modification interface
+- Implement text preview interface
 
 ### Milestone 2.3: Document Management
-- Create document list view
-- Implement individual document actions
+- Create document list view for BOM and README
+- Implement document actions (regenerate, download)
 - Add download functionality
-- Create ZIP file generation system
 - Implement file saving mechanisms
 
-## Phase 3: Backend Integration (Complexity: 3)
-Duration: 1-2 weeks
+## Phase 3: Backend Integration (Complexity: 2)
+Duration: 1 week
 
 ### Milestone 3.1: API Integration
 - Set up OpenRouter API integration
@@ -60,49 +58,32 @@ Duration: 1-2 weeks
 
 ### Milestone 3.2: AI Integration
 - Set up Vercel AI SDK
-- Implement document generation logic
+- Implement document generation logic for BOM and README
 - Create prompt engineering system
 - Add streaming response handling
-- Implement modification request processing
 
-### Milestone 3.3: Data Processing
-- Implement markdown processing
-- Create document template system
-- Set up file conversion utilities
-- Add validation and sanitization
-
-## Phase 4: UI Polish and Enhancement (Complexity: 3)
-Duration: 1-2 weeks
+## Phase 4: UI Polish and Enhancement (Complexity: 2)
+Duration: 1 week
 
 ### Milestone 4.1: Animation Implementation
 - Add Framer Motion animations
   - Form transitions
   - Document loading states
   - Progress stepper animations
-  - Chat interface interactions
 
 ### Milestone 4.2: UX Improvements
 - Implement error feedback system
 - Add success notifications
 - Create loading indicators
 - Implement progress tracking
-- Add keyboard shortcuts
 
-### Milestone 4.3: Final Polish
-- Implement responsive design adjustments
-- Add accessibility improvements
-- Optimize performance
-- Implement error boundary system
-- Add analytics tracking
-
-## Testing and Deployment Phase (Complexity: 2)
-Duration: 1 week
+## Testing and Deployment Phase (Complexity: 1)
+Duration: 3-4 days
 
 ### Milestone 5.1: Testing
 - Implement unit tests
 - Add integration tests
 - Perform end-to-end testing
-- Conduct performance testing
 - Complete accessibility testing
 
 ### Milestone 5.2: Deployment
@@ -110,9 +91,8 @@ Duration: 1 week
 - Configure production environment
 - Implement monitoring system
 - Add logging system
-- Create backup system
 
-## Total Estimated Timeline: 6-10 weeks
+## Total Estimated Timeline: 4-5 weeks
 
 ### Risk Factors
 1. API Integration Complexity
@@ -121,14 +101,14 @@ Duration: 1 week
    - Error handling edge cases
 
 2. State Management
-   - Complex state interactions
+   - Local storage limitations
    - Data persistence reliability
-   - Version control conflicts
+   - Browser compatibility
 
 3. Performance
-   - Large document handling
-   - ZIP file generation for large sets
-   - Markdown rendering performance
+   - Document rendering performance
+   - Local storage size constraints
+   - Markdown rendering optimization
 
 ### Success Metrics
 1. Document Generation
@@ -138,10 +118,10 @@ Duration: 1 week
 
 2. User Experience
    - Form completion time < 5 minutes
-   - Document modification success rate > 90%
-   - System uptime > 99%
+   - Document preview loading time < 2s
+   - System responsiveness > 95%
 
 3. Performance
-   - Page load time < 3s
-   - Time to interactive < 4s
-   - First contentful paint < 2s
+   - Page load time < 2s
+   - Time to interactive < 3s
+   - First contentful paint < 1.5s

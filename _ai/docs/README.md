@@ -8,17 +8,14 @@ GenSpecs is an automated document generation system designed to streamline the p
 - Step-by-step document generation workflow
 - Document generation for:
   1. README
-  2. Bill of Materials
-  3. Project Roadmap
-  4. Implementation Plan
+  2. Bill of Materials (BOM)
 - Two-column layout with vertical progress stepper
-  - left column: stepper
-  - right column: view generated text
-- Real-time document preview and editing
-- Chat interface for requesting document changes
-- Document persistence across page refreshes
+  - Left column: stepper for workflow progress
+  - Right column: document text preview
+- Real-time document preview
+- Document persistence using local storage
 - Custom OpenRouter API key integration
-- Individual or bulk document downloads
+- Individual document downloads
 - Skeleton loading states for document generation
 
 ## System Requirements
@@ -32,13 +29,12 @@ GenSpecs is an automated document generation system designed to streamline the p
 - Shadcn Component Library
 - OpenRouter API
 - Vercel AI SDK
-- Novel.sh (Markdown editor)
 
 ## Architecture
 The application follows a modern web architecture with:
 - Client-side routing and state management via Next.js
 - Server-side API integration with OpenRouter
-- Persistent storage for document state
+- Local storage for document state persistence
 - Real-time document generation and preview
 - Modular component structure for UI elements
 
@@ -50,16 +46,16 @@ The application follows a modern web architecture with:
 
 2. Document Generation Workflow
    - Vertical progress stepper
-   - Document preview panel
-   - Chat interface for modifications
+   - Document text preview panel
+   - Document regeneration options
 
 3. Document Management
-   - Real-time preview and editing
+   - Real-time preview
    - Version control and persistence
-   - Download management (single/bulk)
+   - Download functionality
 
 4. UI Components
    - Two-column layout system
    - Loading states and animations
-   - Markdown editor integration
-   - Chat interface for document modifications
+   - Markdown preview rendering
+   - Progress tracking interface
