@@ -31,7 +31,6 @@ Duration: 1-2 weeks
 ### Milestone 2.1: State Management
 - Implement local storage based state management
 - Set up form data validation logic
-- Create document version tracking system
 
 ### Milestone 2.2: Document Generation Flow
 - Create document preview system
@@ -42,7 +41,7 @@ Duration: 1-2 weeks
 
 ### Milestone 2.3: Document Management
 - Create document list view for BOM and README
-- Implement document actions (regenerate, download)
+- Implement document actions (download)
 - Add download functionality
 - Implement file saving mechanisms
 
