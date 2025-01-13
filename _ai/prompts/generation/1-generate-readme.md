@@ -4,7 +4,7 @@
 
 ### Requirements
 
-- Defined Overview and User Stories document
+- Defined Overview / User Stories document
 
 #### Instructions
 
