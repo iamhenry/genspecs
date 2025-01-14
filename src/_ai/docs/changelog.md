@@ -80,12 +80,6 @@ This document tracks all modifications to GenSpecs, a Next.js web application fo
    - Stepper component creation
    - Layout optimization
 
-### Upcoming Features
-
-- Enhanced form validation
-- Additional stepper variations
-- Improved responsive design
-- Extended documentation coverage
 
 ---
 
