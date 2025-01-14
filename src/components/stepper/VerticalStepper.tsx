@@ -5,15 +5,49 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { defineStepper } from "@stepperize/react";
 
+interface Step {
+  id: string;
+  title: string;
+  content: React.ReactNode;
+}
+
+interface VerticalStepperProps {
+  onChange?: (step: Step) => void;
+}
+
+// Define all steps in one place for easy management
+const STEPS: Step[] = [
+  {
+    id: "readme",
+    title: "README",
+    content: <div>README content goes here</div>,
+  },
+  {
+    id: "bom",
+    title: "Bill of Materials",
+    content: <div>Bill of Materials content goes here</div>,
+  },
+  {
+    id: "download",
+    title: "Download Documents",
+    content: <div>Download Documents content goes here</div>,
+  },
+];
+
+// Create stepper from steps array
 const { useStepper, steps, utils } = defineStepper(
-  { id: "readme", title: "README" },
-  { id: "bom", title: "Bill of Materials" },
-  { id: "download", title: "Download Documents" }
+  ...STEPS.map(({ id, title }) => ({ id, title }))
 );
 
-export function VerticalStepper() {
+export function VerticalStepper({ onChange }: VerticalStepperProps) {
   const stepper = useStepper();
   const currentIndex = utils.getIndex(stepper.current.id);
+
+  // Call onChange whenever the current step changes
+  React.useEffect(() => {
+    const currentStep = STEPS[currentIndex];
+    onChange?.(currentStep);
+  }, [currentIndex, onChange]);
 
   return (
     <div className="flex flex-col h-full">
