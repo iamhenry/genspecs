@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { TwoColumnLayout } from "@/components/layout/TwoColumnLayout";
 import { VerticalStepper } from "@/components/stepper/VerticalStepper";
+import { ContactForm } from "@/components/ContactForm";
 
 interface Step {
   id: string;
@@ -21,6 +22,7 @@ export default function Home() {
             leftContent={<VerticalStepper onChange={setCurrentStep} />}
             currentStep={currentStep}
           />
+          {/* <ContactForm/> */}
         </div>
       </div>
     </div>
