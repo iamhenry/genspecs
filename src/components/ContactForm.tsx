@@ -43,18 +43,12 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full max-w-2xl space-y-8"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
         <FormField
           control={form.control}
           name="projectName"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel className="text-neutral-800 text-2xl font-bold font-['Chivo Mono']">
-                Project Name...
-              </FormLabel>
               <FormControl>
                 <Input
                   placeholder="Enter your project name"
