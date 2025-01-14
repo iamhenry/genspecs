@@ -54,9 +54,7 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
       {/* Header */}
       <div className="p-6 pb-2">
         <div className="flex justify-between items-center">
-          <h1 className="text-lg font-bold font-chivo-mono">
-            Document Generator
-          </h1>
+          <h1 className="text-2xl font-bold font-chivo-mono">Document</h1>
         </div>
       </div>
 
