@@ -20,16 +20,26 @@ export function TwoColumnLayout({
   currentStep,
 }: TwoColumnLayoutProps) {
   return (
-    <div className="mx-auto max-w-[960px]">
+    <div className="h-full">
       <ResizablePanelGroup
         direction="horizontal"
-        className="min-h-screen rounded-lg border"
+        className="h-full rounded-lg border"
       >
-        <ResizablePanel defaultSize={33.33} minSize={33.33} maxSize={33.33}>
+        <ResizablePanel
+          defaultSize={33.33}
+          minSize={33.33}
+          maxSize={33.33}
+          className="overflow-y-auto"
+        >
           {leftContent}
         </ResizablePanel>
         <ResizableHandle disabled />
-        <ResizablePanel defaultSize={66.67} minSize={66.67} maxSize={66.67}>
+        <ResizablePanel
+          defaultSize={66.67}
+          minSize={66.67}
+          maxSize={66.67}
+          className="overflow-y-auto"
+        >
           <div className="p-6">
             {currentStep && (
               <>
