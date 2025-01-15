@@ -78,22 +78,22 @@ Set up the basic application structure with API key management and layout compon
 ## Milestone 2: Form Implementation
 
 ### Relevant Files:
-- `src/components/ProjectForm.tsx` - Main project input form (to be created)
+- `src/components/ContactForm.tsx` - Existing form component to be reused
 - `src/lib/validations.ts` - Form validation schemas (to be created)
 - `src/types/index.ts` - TypeScript type definitions (to be created)
 
 ### Data Flow:
-1. User fills project form
-2. Data validated using zod schemas
+1. User fills project form using existing ContactForm component
+2. Data validated using zod schemas (already implemented)
 3. On submit, data stored in state
 4. Triggers document generation process
 
 ### Objective:
-Create a robust form for collecting project information with validation.
+Adapt existing ContactForm component for project information collection.
 
 ### Acceptance Criteria:
-- Form captures all required project information
-- Client-side validation with helpful error messages
+- Reuse ContactForm component with minimal modifications
+- Extend validation if needed
 - Smooth transition to generation phase
 - Proper TypeScript types for form data
 
@@ -103,37 +103,25 @@ Create a robust form for collecting project information with validation.
   - File: `src/types/index.ts` (create)
   - Dependency: None
   - [ ] 2.1.1. Create Form Types
-    - [ ] 2.1.1.1. Define project info interface
-    - [ ] 2.1.1.2. Create form state types
+    - [ ] 2.1.1.1. Reuse existing form schema types
+    - [ ] 2.1.1.2. Add any additional types needed
     - [ ] 2.1.1.3. Add validation error types
-  - [ ] 2.1.2. Define API Types
-    - [ ] 2.1.2.1. Create API response interfaces
-    - [ ] 2.1.2.2. Define error types
-    - [ ] 2.1.2.3. Add utility type helpers
 
-- [ ] 2.2. Create Validation Schemas
+- [ ] 2.2. Extend Validation Schemas
   - File: `src/lib/validations.ts` (create)
   - Dependency: Type definitions
-  - [ ] 2.2.1. Implement Form Schemas
-    - [ ] 2.2.1.1. Create project info schema
-    - [ ] 2.2.1.2. Add custom validation rules
-    - [ ] 2.2.1.3. Define error messages
-  - [ ] 2.2.2. Add Validation Utils
-    - [ ] 2.2.2.1. Create schema validators
-    - [ ] 2.2.2.2. Add error formatting
-    - [ ] 2.2.2.3. Implement validation helpers
+  - [ ] 2.2.1. Review Existing Schema
+    - [ ] 2.2.1.1. Assess current validation rules
+    - [ ] 2.2.1.2. Add any additional validation
+    - [ ] 2.2.1.3. Update error messages if needed
 
-- [ ] 2.3. Build Project Form Component
-  - File: `src/components/ProjectForm.tsx` (create)
+- [ ] 2.3. Adapt ContactForm Component
+  - File: `src/components/ContactForm.tsx`
   - Dependency: Validation schemas, Type definitions
-  - [ ] 2.3.1. Create Form Structure
-    - [ ] 2.3.1.1. Set up form provider
-    - [ ] 2.3.1.2. Add form fields
-    - [ ] 2.3.1.3. Implement field validation
-  - [ ] 2.3.2. Add Form Logic
-    - [ ] 2.3.2.1. Create submission handler
-    - [ ] 2.3.2.2. Add error handling
-    - [ ] 2.3.2.3. Implement form reset
+  - [ ] 2.3.1. Update Form Logic
+    - [ ] 2.3.1.1. Modify submission handler
+    - [ ] 2.3.1.2. Add generation trigger
+    - [ ] 2.3.1.3. Implement loading states
 
 ## Milestone 3: Stepper Implementation
 
@@ -201,21 +189,16 @@ Implement a vertical stepper with status indicators and document preview.
 - `src/lib/llm.ts` - LLM integration utilities (to be created)
 - `src/lib/download.ts` - Download utilities (to be created)
 - `src/components/DocumentPreview.tsx` - Preview component (to be created)
+- `src/components/layout/TwoColumnLayout.tsx` - Existing layout to be reused
 
 ### Data Flow:
 1. Form submission triggers README generation
 2. README completion triggers BOM generation
-3. Generated documents stored in state
+3. Generated documents displayed in TwoColumnLayout's right panel
 4. Download bundles documents into zip
 
 ### Objective:
-Implement document generation flow and download functionality.
-
-### Acceptance Criteria:
-- Successful LLM integration
-- Automatic generation flow
-- Preview updates in real-time
-- Working zip download
+Implement document generation flow and download functionality using existing layout.
 
 ### Step-by-Step Tasks:
 
@@ -233,13 +216,13 @@ Implement document generation flow and download functionality.
 
 - [ ] 4.2. Build Document Preview
   - File: `src/components/DocumentPreview.tsx` (create)
-  - Dependency: Generation Store
+  - Dependency: Generation Store, TwoColumnLayout
   - [ ] 4.2.1. Create Preview UI
-    - [ ] 4.2.1.1. Add markdown renderer
-    - [ ] 4.2.1.2. Implement syntax highlighting
-    - [ ] 4.2.1.3. Add loading states
+    - [ ] 4.2.1.1. Integrate with TwoColumnLayout's right panel
+    - [ ] 4.2.1.2. Add markdown renderer
+    - [ ] 4.2.1.3. Implement syntax highlighting
   - [ ] 4.2.2. Implement Preview Logic
-    - [ ] 4.2.2.1. Add content switching
+    - [ ] 4.2.2.1. Add content switching using currentStep prop
     - [ ] 4.2.2.2. Create update handlers
     - [ ] 4.2.2.3. Implement error states
 
