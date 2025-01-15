@@ -1,3 +1,16 @@
+/**
+ * @file Contact Form Component
+ * @description A form component for project information collection.
+ * Includes fields for project name, description, and user stories.
+ * Uses Zod for form validation and custom styling with Tailwind CSS.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <ContactForm />
+ * ```
+ */
+
 "use client";
 
 import React from "react";

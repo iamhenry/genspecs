@@ -1,4 +1,4 @@
-# Single Page Stepper Implementation Plan
+# LLM and SDK Implementation Plan
 
 ## Phase 1: Static UI Scaffold
 
@@ -25,13 +25,13 @@ Create all UI components without functionality, focusing on layout and visual de
 
 ### Step-by-Step Tasks:
 
-- [ ] 1.1. Build API Key Modal UI
+- [x] 1.1. Build API Key Modal UI
   - File: `src/components/ApiKeyModal.tsx` (create)
-  - [ ] 1.1.1. Create Modal Shell
-    - [ ] 1.1.1.1. Add shadcn dialog component
-    - [ ] 1.1.1.2. Create form layout
-    - [ ] 1.1.1.3. Add input field placeholder
-    - [ ] 1.1.1.4. Add save/cancel buttons
+  - [x] 1.1.1. Create Modal Shell
+    - [x] 1.1.1.1. Add shadcn dialog component
+    - [x] 1.1.1.2. Create form layout
+    - [x] 1.1.1.3. Add input field placeholder
+    - [x] 1.1.1.4. Add save/cancel buttons
 
 - [ ] 1.2. Create Step Icon Component
   - File: `src/components/stepper/StepIcon.tsx` (create)

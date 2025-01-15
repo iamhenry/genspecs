@@ -1,3 +1,20 @@
+/**
+ * @file Two Column Layout Component
+ * @description A resizable two-column layout component with fixed proportions.
+ * Left panel is fixed at 33.33% and right panel at 66.67% of the total width.
+ * Supports dynamic content rendering based on the current step.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <TwoColumnLayout
+ *   leftContent={<LeftComponent />}
+ *   rightContent={<RightComponent />}
+ *   currentStep={step}
+ * />
+ * ```
+ */
+
 import { ReactNode } from "react";
 import {
   ResizableHandle,

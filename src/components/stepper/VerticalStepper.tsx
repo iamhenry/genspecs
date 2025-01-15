@@ -1,3 +1,16 @@
+/**
+ * @file Vertical Stepper Component
+ * @description A vertical stepper navigation component that manages multi-step workflow.
+ * Features numbered steps, progress indication, and navigation controls.
+ * Integrates with @stepperize/react for state management.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <VerticalStepper onChange={(step) => handleStepChange(step)} />
+ * ```
+ */
+
 "use client";
 
 import * as React from "react";
