@@ -5,6 +5,7 @@
 - Always think step by step
 - Decompose it into a structured implementation plan using the principles of Vertical Slice, Incremental Development, and MVP.
 - Prioritize building a simple, functional prototype first and incrementally refine it toward the final vision.
+- IMPORTANT: Breakup Milestones in this order: Static UI (UI scaffold, no functionality yet) -> Frontend -> Backend -> UI Polish (e.g. animations)
 
 # Requirements
 
