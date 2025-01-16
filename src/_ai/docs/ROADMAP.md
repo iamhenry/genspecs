@@ -18,11 +18,9 @@ Duration: 1 week
 - Implement form validation UI
 - Add loading state components
 
-### Milestone 1.3: Document Workflow UI
-- Build two-column layout structure
-  - Left column: Vertical progress stepper
-  - Right column: Document text preview
-- Implement document preview area with markdown rendering
+### Milestone 1.3: Document Generation UI
+- Build vertical progress stepper for generation workflow
+- Implement loading states and progress indicators
 - Add skeleton loading states
 
 ## Phase 2: Frontend Core Implementation (Complexity: 3)
@@ -33,11 +31,11 @@ Duration: 1-2 weeks
 - Set up form data validation logic
 
 ### Milestone 2.2: Document Generation Flow
-- Create document preview system
-- Implement markdown rendering
+- Create document generation system
+- Implement generation state management
 - Build document acceptance/rejection flow
 - Add document regeneration functionality
-- Implement text preview interface
+- Implement vertical stepper progress tracking
 
 ### Milestone 2.3: Document Management
 - Create document list view for BOM and README

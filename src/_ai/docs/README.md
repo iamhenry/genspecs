@@ -5,14 +5,10 @@ GenSpecs is an automated document generation system designed to streamline the p
 
 ## Features
 - Interactive form-based project setup (name, description, tech stack, user stories)
-- Step-by-step document generation workflow
+- Step-by-step document generation workflow with vertical progress stepper
 - Document generation for:
   1. README
   2. Bill of Materials (BOM)
-- Two-column layout with vertical progress stepper
-  - Left column: stepper for workflow progress
-  - Right column: document text preview
-- Real-time document preview
 - Document persistence using local storage
 - Custom OpenRouter API key integration
 - Individual document downloads
@@ -35,7 +31,7 @@ The application follows a modern web architecture with:
 - Client-side routing and state management via Next.js
 - Server-side API integration with OpenRouter
 - Local storage for document state persistence
-- Real-time document generation and preview
+- Step-based document generation workflow
 - Modular component structure for UI elements
 
 ## Core Components
@@ -46,16 +42,15 @@ The application follows a modern web architecture with:
 
 2. Document Generation Workflow
    - Vertical progress stepper
-   - Document text preview panel
+   - Generation state management
    - Document regeneration options
 
 3. Document Management
-   - Real-time preview
+   - Generation state tracking
    - Version control and persistence
    - Download functionality
 
 4. UI Components
-   - Two-column layout system
+   - Form-based input system
    - Loading states and animations
-   - Markdown preview rendering
    - Progress tracking interface

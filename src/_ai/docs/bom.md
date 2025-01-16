@@ -10,23 +10,17 @@
   - User stories input
 - Document generation workflow system
   - Step-by-step document generation
-  - Document preview interface
+  - Generation state tracking
   - Document acceptance/rejection mechanism
-- Document preview system
-  - Text-based preview interface
-  - Document regeneration capability
 - Document management
-  - Individual document download
-  - Document list view with regenerate/download options
+  - Download all files in a zip file
 
 ### 1.2 Supporting Features
 - Progress persistence system
   - Local storage integration
   - State management
 - Loading states and indicators
-- Two-column layout system
-  - Vertical progress stepper
-  - Document text preview pane
+- Vertical progress stepper
 - OpenRouter API key management
 - Error handling system
 - Document version control
@@ -73,30 +67,25 @@
 2. Document Generation Flow
    - Sequential document generation
    - Progress tracking
-   - Document preview
+   - Generation state management
    - Acceptance/rejection mechanism
 
-3. Document Preview System
-   - Text-based preview interface
-   - Real-time preview updates
-   - Document regeneration capability
-
-4. Document Management
+3. Document Management
    - Document list view
    - Individual document actions (regenerate/download)
 
-5. State Persistence
+4. State Persistence
    - Local storage integration
    - Progress saving
    - Data recovery on page refresh
 
-6. User Interface
-   - Two-column layout
+5. User Interface
+   - Form-based input
    - Vertical progress stepper
    - Loading states
    - Responsive design
 
-7. API Integration
+6. API Integration
    - OpenRouter API key management
    - LLM integration
    - Error handling and retry mechanisms
