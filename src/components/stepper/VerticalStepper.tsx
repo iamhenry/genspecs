@@ -17,15 +17,18 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { defineStepper } from "@stepperize/react";
+import { StepIcon, StepIconState } from "@/components/stepper/StepIcon";
 
 interface Step {
   id: string;
   title: string;
   content: React.ReactNode;
+  state?: StepIconState;
 }
 
 interface VerticalStepperProps {
   onChange?: (step: Step) => void;
+  stepStates?: Record<string, StepIconState>;
 }
 
 // Define all steps in one place for easy management
@@ -52,7 +55,10 @@ const { useStepper, steps, utils } = defineStepper(
   ...STEPS.map(({ id, title }) => ({ id, title }))
 );
 
-export function VerticalStepper({ onChange }: VerticalStepperProps) {
+export function VerticalStepper({
+  onChange,
+  stepStates = {},
+}: VerticalStepperProps) {
   const stepper = useStepper();
   const currentIndex = utils.getIndex(stepper.current.id);
 
@@ -80,17 +86,23 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
                 <Button
                   type="button"
                   role="tab"
-                  variant={index <= currentIndex ? "default" : "secondary"}
+                  variant="ghost"
                   aria-current={
                     stepper.current.id === step.id ? "step" : undefined
                   }
                   aria-posinset={index + 1}
                   aria-setsize={steps.length}
                   aria-selected={stepper.current.id === step.id}
-                  className="flex size-10 items-center justify-center rounded-full"
+                  className="flex size-10 items-center justify-center rounded-full p-0 hover:bg-transparent"
                   onClick={() => stepper.goTo(step.id)}
                 >
-                  {index + 1}
+                  <StepIcon
+                    state={
+                      stepStates[step.id] ||
+                      (index <= currentIndex ? "idle" : "idle")
+                    }
+                    className="w-4 h-4"
+                  />
                 </Button>
                 <span className="text-sm font-bold font-chivo-mono">
                   {step.title}
