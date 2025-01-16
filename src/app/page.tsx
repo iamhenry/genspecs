@@ -17,6 +17,7 @@ import { TwoColumnLayout } from "@/components/layout/TwoColumnLayout";
 import { VerticalStepper } from "@/components/stepper/VerticalStepper";
 import { ApiKeyModal } from "@/components/ApiKeyModal";
 import { ContactForm } from "@/components/ContactForm";
+import { useGeneration } from "@/context/GenerationContext";
 
 interface Step {
   id: string;
@@ -26,6 +27,7 @@ interface Step {
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState<Step | undefined>();
+  const { currentStep: activeStepId } = useGeneration();
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-4">
@@ -34,11 +36,11 @@ export default function Home() {
           <div className="flex justify-end mb-6">
             <ApiKeyModal />
           </div>
-          <TwoColumnLayout
-            leftContent={<VerticalStepper onChange={setCurrentStep} />}
-            currentStep={currentStep}
-          />
-          {/* <ContactForm /> */}
+          {!activeStepId ? (
+            <ContactForm />
+          ) : (
+            <VerticalStepper onChange={setCurrentStep} />
+          )}
         </div>
       </div>
     </div>

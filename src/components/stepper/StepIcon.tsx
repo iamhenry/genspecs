@@ -11,18 +11,22 @@ interface StepIconProps {
 
 export function StepIcon({ state, className }: StepIconProps) {
   return (
-    <div className={cn("relative w-6 h-6", className)}>
-      {state === "idle" && <Circle className="w-6 h-6 text-gray-400" />}
+    <div className={cn("relative w-4 h-4", className)}>
+      {state === "idle" && <Circle className="w-4 h-4 text-gray-400" />}
 
       {state === "loading" && (
-        <div className="w-6 h-6">
-          <EightBitSpinner color="currentColor" className="text-gray-600" />
+        <div className="w-4 h-4">
+          <EightBitSpinner
+            size={16}
+            color="currentColor"
+            className="text-gray-600"
+          />
         </div>
       )}
 
-      {state === "done" && <CircleCheck className="w-6 h-6 text-green-500" />}
+      {state === "done" && <CircleCheck className="w-4 h-4 text-green-500" />}
 
-      {state === "error" && <CircleAlert className="w-6 h-6 text-red-500" />}
+      {state === "error" && <CircleAlert className="w-4 h-4 text-red-500" />}
     </div>
   );
 }

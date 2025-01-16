@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { defineStepper } from "@stepperize/react";
 import { StepIcon, StepIconState } from "@/components/stepper/StepIcon";
+import { useGeneration } from "@/context/GenerationContext";
+import { DocumentType } from "@/types/generation";
 
 interface Step {
   id: string;
@@ -28,25 +30,24 @@ interface Step {
 
 interface VerticalStepperProps {
   onChange?: (step: Step) => void;
-  stepStates?: Record<string, StepIconState>;
 }
 
 // Define all steps in one place for easy management
 const STEPS: Step[] = [
-  {
-    id: "readme",
-    title: "README",
-    content: <div>README content goes here</div>,
-  },
   {
     id: "bom",
     title: "Bill of Materials",
     content: <div>Bill of Materials content goes here</div>,
   },
   {
-    id: "download",
-    title: "Download Documents",
-    content: <div>Download Documents content goes here</div>,
+    id: "roadmap",
+    title: "Roadmap",
+    content: <div>Roadmap content goes here</div>,
+  },
+  {
+    id: "implementation-plan",
+    title: "Implementation Plan",
+    content: <div>Implementation Plan content goes here</div>,
   },
 ];
 
@@ -55,18 +56,91 @@ const { useStepper, steps, utils } = defineStepper(
   ...STEPS.map(({ id, title }) => ({ id, title }))
 );
 
-export function VerticalStepper({
-  onChange,
-  stepStates = {},
-}: VerticalStepperProps) {
+export function VerticalStepper({ onChange }: VerticalStepperProps) {
   const stepper = useStepper();
   const currentIndex = utils.getIndex(stepper.current.id);
+  const { documents, setCurrentStep, updateDocument } = useGeneration();
+
+  // Get step state based on document status
+  const getStepState = (stepId: string): StepIconState => {
+    const docType = stepId as DocumentType;
+    const doc = documents[docType];
+
+    if (!doc) return "idle";
+
+    switch (doc.status) {
+      case "generating":
+        return "loading";
+      case "accepted":
+        return "done";
+      case "error":
+        return "error";
+      default:
+        return "idle";
+    }
+  };
+
+  // Handle step navigation
+  const handleStepChange = (stepId: string) => {
+    const currentDoc = documents[stepper.current.id as DocumentType];
+    const targetDoc = documents[stepId as DocumentType];
+
+    // Mark current step as done if moving forward
+    if (currentDoc && utils.getIndex(stepId) > currentIndex) {
+      updateDocument(stepper.current.id as DocumentType, {
+        status: "accepted",
+      });
+    }
+
+    // Start generating target document if not already done
+    if (targetDoc && targetDoc.status === "idle") {
+      updateDocument(stepId as DocumentType, { status: "generating" });
+    }
+
+    stepper.goTo(stepId);
+  };
+
+  // Handle next/prev navigation
+  const handleNext = () => {
+    if (!stepper.isLast) {
+      const nextStepId = stepper.all[currentIndex + 1].id;
+      handleStepChange(nextStepId);
+    } else {
+      handleReset();
+    }
+  };
+
+  const handlePrev = () => {
+    if (!stepper.isFirst) {
+      const prevStepId = stepper.all[currentIndex - 1].id;
+      handleStepChange(prevStepId);
+    }
+  };
+
+  // Handle reset
+  const handleReset = () => {
+    // Reset all document states to idle
+    STEPS.forEach((step) => {
+      updateDocument(step.id as DocumentType, { status: "idle" });
+    });
+
+    // Go back to first step
+    stepper.reset();
+    handleStepChange(STEPS[0].id);
+  };
 
   // Call onChange whenever the current step changes
   React.useEffect(() => {
     const currentStep = STEPS[currentIndex];
     onChange?.(currentStep);
-  }, [currentIndex, onChange]);
+    setCurrentStep(currentStep.id);
+
+    // Start generating current document if idle
+    const currentDoc = documents[currentStep.id as DocumentType];
+    if (currentDoc && currentDoc.status === "idle") {
+      updateDocument(currentStep.id as DocumentType, { status: "generating" });
+    }
+  }, [currentIndex, onChange, setCurrentStep, documents, updateDocument]);
 
   return (
     <div className="flex flex-col h-full">
@@ -94,15 +168,9 @@ export function VerticalStepper({
                   aria-setsize={steps.length}
                   aria-selected={stepper.current.id === step.id}
                   className="flex size-10 items-center justify-center rounded-full p-0 hover:bg-transparent"
-                  onClick={() => stepper.goTo(step.id)}
+                  onClick={() => handleStepChange(step.id)}
                 >
-                  <StepIcon
-                    state={
-                      stepStates[step.id] ||
-                      (index <= currentIndex ? "idle" : "idle")
-                    }
-                    className="w-4 h-4"
-                  />
+                  <StepIcon state={getStepState(step.id)} className="w-4 h-4" />
                 </Button>
                 <span className="text-sm font-bold font-chivo-mono">
                   {step.title}
@@ -130,13 +198,13 @@ export function VerticalStepper({
         <div className="flex justify-between gap-4">
           <Button
             variant="secondary"
-            onClick={stepper.prev}
+            onClick={handlePrev}
             disabled={stepper.isFirst}
           >
             Back
           </Button>
           <Button
-            onClick={stepper.isLast ? stepper.reset : stepper.next}
+            onClick={handleNext}
             variant={stepper.isLast ? "secondary" : "default"}
           >
             {stepper.isLast ? "Reset" : "Next"}

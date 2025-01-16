@@ -95,13 +95,13 @@ Implement all frontend logic, state management, and user interactions.
     - [x] 2.2.2.2. Add selectors for step progress and document status
     - [x] 2.2.2.3. Create persistence layer using localStorage
 
-- [ ] 2.3. Add View State Management
-  - [ ] 2.3.1. Form to Stepper Transition
-    - [ ] 2.3.1.1. Add form submission handler with Zod validation
-    - [ ] 2.3.1.2. Implement contactform to vertical stepper transition
-  - [ ] 2.3.2. Generation Progress
-    - [ ] 2.3.2.1. Use StepIcon states to update the vertical stepper
-    - [ ] 2.3.2.2. Implement vertical stepper to generation view transition
+- [x] 2.3. Add View State Management
+  - [x] 2.3.1. Form to Stepper Transition
+    - [x] 2.3.1.1. Add form submission handler with Zod validation
+    - [x] 2.3.1.2. Implement contactform to vertical stepper transition
+  - [x] 2.3.2. Generation Progress
+    - [x] 2.3.2.1. Use StepIcon states to update the vertical stepper
+    - [x] 2.3.2.2. Implement vertical stepper to generation view transition
 
 ## Phase 3: Backend Integration
 
