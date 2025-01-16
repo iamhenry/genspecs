@@ -4,6 +4,18 @@ This document tracks all modifications to GenSpecs, a Next.js web application fo
 
 ---
 
+## Version 0.1.3-alpha – Jan-16-2025 10:51 AM PST
+
+### Enhanced
+- Vertical Stepper UI Enhancements
+  - Description: Improved step state management in VerticalStepper component with StepIcon
+  - Features:
+    - Added state management for individual steps
+    - Enhanced user interaction patterns
+    - Improved component documentation
+  - Status: Component enhancements complete
+  - Reference: accc1a76
+
 ## Version 0.1.2-alpha – Jan-15-2025 04:36 PM PST
 
 ### Enhanced
