@@ -41,13 +41,13 @@ Create all UI components without functionality, focusing on layout and visual de
     - [x] 1.2.1.3. Design success/error states
     - [x] 1.2.1.4. Add state transition animations
 
-- [ ] 1.3. Enhance Vertical Stepper UI
+- [x] 1.3. Enhance Vertical Stepper UI
   - File: `src/components/stepper/VerticalStepper.tsx`
-  - [ ] 1.3.1. Update Visual Design
-    - [ ] 1.3.1.1. Add step indicators with StepIcon
-      - Ensure to use a red color icon (16x16) for error states and a green color icon (16x16) for completed states.
-      - Icons should be vertically aligned with the vertical divider for a cohesive look.
-      - Reuse the existing state mechanism from the stepper to maintain consistency in icon representation.
+  - [x] 1.3.1. Update Visual Design
+    - [x] 1.3.1.1. Add step indicators with StepIcon
+      - [x] Ensure to use a red color icon (16x16) for error states and a green color icon (16x16) for completed states.
+      - [x] Icons should be vertically aligned with the vertical divider for a cohesive look.
+      - [x] Reuse the existing state mechanism from the stepper to maintain consistency in icon representation.
 
 - [ ] 1.4. Create Document Preview Component
   - File: `src/components/DocumentPreview.tsx` (create)
