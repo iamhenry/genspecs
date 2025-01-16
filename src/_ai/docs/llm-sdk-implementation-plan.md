@@ -84,26 +84,24 @@ Implement all frontend logic, state management, and user interactions.
     - [x] 2.1.1.2. Implement useLocalStorage hook with encryption for API key
     - [x] 2.1.1.3. Add validateApiKey method with OpenRouter API check
 
-- [ ] 2.2. Set up Generation Store
+- [x] 2.2. Set up Generation Store
   - File: `src/store/generationStore.ts` (create)
-  - [ ] 2.2.1. Define Store Structure
-    - [ ] 2.2.1.1. Create StepState and GenerationState interfaces
-    - [ ] 2.2.1.2. Initialize store with currentStep and documentStates
-    - [ ] 2.2.1.3. Add actions for step transitions and document updates
-  - [ ] 2.2.2. Add Store Logic
-    - [ ] 2.2.2.1. Implement step state machine with validation
-    - [ ] 2.2.2.2. Add selectors for step progress and document status
-    - [ ] 2.2.2.3. Create persistence layer using localStorage
+  - [x] 2.2.1. Define Store Structure
+    - [x] 2.2.1.1. Create StepState and GenerationState interfaces
+    - [x] 2.2.1.2. Initialize store with currentStep and documentStates
+    - [x] 2.2.1.3. Add actions for step transitions and document updates
+  - [x] 2.2.2. Add Store Logic
+    - [x] 2.2.2.1. Implement step state machine with validation
+    - [x] 2.2.2.2. Add selectors for step progress and document status
+    - [x] 2.2.2.3. Create persistence layer using localStorage
 
 - [ ] 2.3. Add View State Management
   - [ ] 2.3.1. Form to Stepper Transition
     - [ ] 2.3.1.1. Add form submission handler with Zod validation
-    - [ ] 2.3.1.2. Create loading spinner with 8-bit animation
-    - [ ] 2.3.1.3. Implement TwoColumnLayout transition logic
+    - [ ] 2.3.1.2. Implement contactform to vertical stepper transition
   - [ ] 2.3.2. Generation Progress
-    - [ ] 2.3.2.1. Add StepIcon state updates with animations
-    - [ ] 2.3.2.2. Implement step navigation with validation
-    - [ ] 2.3.2.3. Create progress indicators with Framer Motion
+    - [ ] 2.3.2.1. Use StepIcon states to update the vertical stepper
+    - [ ] 2.3.2.2. Implement vertical stepper to generation view transition
 
 ## Phase 3: Backend Integration
 

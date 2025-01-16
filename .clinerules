@@ -18,11 +18,12 @@ You are an elite full stack developer specializing in building maintainable, mod
 # Context Bank Updates
 When user says "update changelog":  
   1. run `git status` to understand the changes in the project
-  2. update and append to `changelog.md` and ensure to respect the timeline structure. dont overwrite or mix previous days work with recent changes
+  2. Include the changes but also explain why we made those decisions
+  3. update and append to `changelog.md` and ensure to respect the timeline structure. dont overwrite or mix previous days work with recent changes
 
 # Code Review
 When user says "do code review":  
-run `git diff` command then do a code review for the following:
+run `git status` command then do a code review for the following:
 
   1. Dont write any code.
   2. Code readability and modularity: Easy to understand and it's modular..
