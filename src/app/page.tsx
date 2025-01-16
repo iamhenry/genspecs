@@ -13,8 +13,8 @@
 "use client";
 
 import { useState } from "react";
-// import { TwoColumnLayout } from "@/components/layout/TwoColumnLayout";
-// import { VerticalStepper } from "@/components/stepper/VerticalStepper";
+import { TwoColumnLayout } from "@/components/layout/TwoColumnLayout";
+import { VerticalStepper } from "@/components/stepper/VerticalStepper";
 import { ApiKeyModal } from "@/components/ApiKeyModal";
 import { ContactForm } from "@/components/ContactForm";
 
@@ -25,7 +25,7 @@ interface Step {
 }
 
 export default function Home() {
-  // const [currentStep, setCurrentStep] = useState<Step | undefined>();
+  const [currentStep, setCurrentStep] = useState<Step | undefined>();
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-4">
@@ -34,11 +34,11 @@ export default function Home() {
           <div className="flex justify-end mb-6">
             <ApiKeyModal />
           </div>
-          {/* <TwoColumnLayout
+          <TwoColumnLayout
             leftContent={<VerticalStepper onChange={setCurrentStep} />}
             currentStep={currentStep}
-          /> */}
-          <ContactForm />
+          />
+          {/* <ContactForm /> */}
         </div>
       </div>
     </div>

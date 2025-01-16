@@ -3,8 +3,8 @@
 ## Phase 1: Static UI Scaffold
 
 ### Relevant Files:
-- `src/components/ApiKeyModal.tsx` - Modal for API key input (to be created)
-- `src/components/stepper/StepIcon.tsx` - Custom step icons (to be created)
+- `src/components/ApiKeyModal.tsx` - Modal for API key input
+- `src/components/stepper/StepIcon.tsx` - Custom step icons
 - `src/components/stepper/VerticalStepper.tsx` - Stepper component (to be enhanced)
 - `src/components/DocumentPreview.tsx` - Preview component (to be created)
 
@@ -26,7 +26,7 @@ Create all UI components without functionality, focusing on layout and visual de
 ### Step-by-Step Tasks:
 
 - [x] 1.1. Build API Key Modal UI
-  - File: `src/components/ApiKeyModal.tsx` (create)
+  - File: `src/components/ApiKeyModal.tsx`
   - [x] 1.1.1. Create Modal Shell
     - [x] 1.1.1.1. Add shadcn dialog component
     - [x] 1.1.1.2. Create form layout
@@ -34,7 +34,7 @@ Create all UI components without functionality, focusing on layout and visual de
     - [x] 1.1.1.4. Add save/cancel buttons
 
 - [x] 1.2. Create Step Icon Component
-  - File: `src/components/stepper/StepIcon.tsx` (create)
+  - File: `src/components/stepper/StepIcon.tsx`
   - [x] 1.2.1. Design Icon States
     - [x] 1.2.1.1. Create idle state icon
     - [x] 1.2.1.2. Design loading state
@@ -45,9 +45,9 @@ Create all UI components without functionality, focusing on layout and visual de
   - File: `src/components/stepper/VerticalStepper.tsx`
   - [ ] 1.3.1. Update Visual Design
     - [ ] 1.3.1.1. Add step indicators with StepIcon
-    - [ ] 1.3.1.2. Create progress bar
-    - [ ] 1.3.1.3. Style step content area
-    - [ ] 1.3.1.4. Add transition animations
+      - Ensure to use a red color icon (16x16) for error states and a green color icon (16x16) for completed states.
+      - Icons should be vertically aligned with the vertical divider for a cohesive look.
+      - Reuse the existing state mechanism from the stepper to maintain consistency in icon representation.
 
 - [ ] 1.4. Create Document Preview Component
   - File: `src/components/DocumentPreview.tsx` (create)
