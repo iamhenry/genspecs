@@ -19,7 +19,8 @@ You are an elite full stack developer specializing in building maintainable, mod
 When user says "update changelog":  
   1. run a git command to get the recent changes
   2. Include the changes but also explain why we made those decisions
-  3. update and append to `changelog.md` and ensure to respect the timeline structure. dont overwrite or mix previous days work with recent changes
+  3. Ensure to grab the date and timestamp from the git commit to use them in the change log. 
+  4. Append to `changelog.md` and ensure to respect the timeline structure. dont overwrite or mix previous days work with recent changes
 
 # Code Review
 When user says "do code review":  
