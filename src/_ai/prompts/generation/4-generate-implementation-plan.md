@@ -22,6 +22,11 @@ Create a detailed task plan for developing a software feature, ensuring the foll
    - Each task should be tightly scoped, actionable, small, and independent.
    - Decompose and draft a step by step plan to development.
    - Decompose complex tasks (complexity > 2 on a 1-5 scale) into subtasks
+   - Clear technical scope
+   - Specific and descriptive implementation details (without being too verbose)
+   - Integration points with existing code
+   - Concrete deliverables
+   - Technology choices
 3. Specify dependencies
    Identify and document relationships between tasks, indicating which tasks depend on others.
 4. Include file references
@@ -59,17 +64,15 @@ Use the following example structure:
 - [ ] [Task Number]. [Task Description]
   - File: `[File Name]` ([specify if it needs to be created]).
   - Dependency: [Specify dependency if applicable].
-  - [ ] 1.1. Set up API Key Management
-  - File: `src/context/ApiKeyContext.tsx` (create)
-  - Dependency: None
-  - [ ] 1.1.1. Create API Key Context
-    - [ ] 1.1.1.1. Define context types and interfaces
-    - [ ] 1.1.1.2. Implement context provider
-    - [ ] 1.1.1.3. Add local storage integration
-  - [ ] 1.1.2. Implement Key Management Methods
-    - [ ] 1.1.2.1. Add key validation function
-    - [ ] 1.1.2.2. Create key storage utilities
-    - [ ] 1.1.2.3. Add key removal functionality
+  - [ ] 1.1. Set up Generation Store
+  - [ ] 1.1.1. Define Store Structure
+    - [ ] 1.1.1.1. Create StepState and GenerationState interfaces
+    - [ ] 1.1.1.2. Initialize store with currentStep and documentStates
+    - [ ] 1.1.1.3. Add actions for step transitions and document updates
+  - [ ] 1.1.2. Add Store Logic
+    - [ ] 1.1.2.1. Implement step state machine with validation
+    - [ ] 1.1.2.2. Add selectors for step progress and document status
+    - [ ] 1.1.2.3. Create persistence layer using localStorage
 </output_format>
 
 <commands>

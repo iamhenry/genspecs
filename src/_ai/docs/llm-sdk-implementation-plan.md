@@ -5,8 +5,8 @@
 ### Relevant Files:
 - `src/components/ApiKeyModal.tsx` - Modal for API key input
 - `src/components/stepper/StepIcon.tsx` - Custom step icons
-- `src/components/stepper/VerticalStepper.tsx` - Stepper component (to be enhanced)
-- `src/components/DocumentPreview.tsx` - Preview component (to be created)
+- `src/components/stepper/VerticalStepper.tsx` - Stepper component
+- `src/components/ContactForm.tsx` - Project information form
 
 ### Objective:
 Create all UI components without functionality, focusing on layout and visual design.
@@ -15,7 +15,6 @@ Create all UI components without functionality, focusing on layout and visual de
 1. Static UI components with mock data
 2. No real data flow - components render with placeholder content
 3. Visual state changes through prop changes (no real state management)
-4. Mock transitions and animations with dummy triggers
 
 ### Acceptance Criteria:
 - All components visually match design specs
@@ -49,14 +48,6 @@ Create all UI components without functionality, focusing on layout and visual de
       - [x] Icons should be vertically aligned with the vertical divider for a cohesive look.
       - [x] Reuse the existing state mechanism from the stepper to maintain consistency in icon representation.
 
-- [ ] 1.4. Create Document Preview Component
-  - File: `src/components/DocumentPreview.tsx` (create)
-  - [ ] 1.4.1. Build Preview UI
-    - [ ] 1.4.1.1. Add markdown preview area
-    - [ ] 1.4.1.2. Create syntax highlighting theme
-    - [ ] 1.4.1.3. Add loading skeleton
-    - [ ] 1.4.1.4. Design error states
-
 ## Phase 2: Frontend Logic
 
 ### Relevant Files:
@@ -66,7 +57,7 @@ Create all UI components without functionality, focusing on layout and visual de
 - `src/types/index.ts` - TypeScript type definitions (to be created)
 
 ### Objective:
-Implement all frontend logic, state management, and user interactions without backend integration.
+Implement all frontend logic, state management, and user interactions.
 
 ### Data Flow:
 1. User Input Flow:
@@ -79,40 +70,40 @@ Implement all frontend logic, state management, and user interactions without ba
    - Context provides API key status to components
    - Local storage persists user preferences and API key
 
-3. Component Communication:
-   - Parent components pass callbacks to children
-   - Store updates trigger component re-renders
-   - Context changes propagate to subscribed components
+3. View State Flow:
+   - Form view → Generation view transition
+   - Step progress updates
+   - Final download state
 
 ### Step-by-Step Tasks:
 
 - [ ] 2.1. Implement API Key Management
   - File: `src/context/ApiKeyContext.tsx` (create)
   - [ ] 2.1.1. Create Context Logic
-    - [ ] 2.1.1.1. Define context types
-    - [ ] 2.1.1.2. Add local storage integration
-    - [ ] 2.1.1.3. Create key validation methods
+    - [ ] 2.1.1.1. Create ApiKeyContext with isValid and key states
+    - [ ] 2.1.1.2. Implement useLocalStorage hook with encryption for API key
+    - [ ] 2.1.1.3. Add validateApiKey method with OpenRouter API check
 
 - [ ] 2.2. Set up Generation Store
   - File: `src/store/generationStore.ts` (create)
   - [ ] 2.2.1. Define Store Structure
-    - [ ] 2.2.1.1. Create store types
-    - [ ] 2.2.1.2. Set up initial state
-    - [ ] 2.2.1.3. Define actions
+    - [ ] 2.2.1.1. Create StepState and GenerationState interfaces
+    - [ ] 2.2.1.2. Initialize store with currentStep and documentStates
+    - [ ] 2.2.1.3. Add actions for step transitions and document updates
   - [ ] 2.2.2. Add Store Logic
-    - [ ] 2.2.2.1. Implement state updates
-    - [ ] 2.2.2.2. Create selectors
-    - [ ] 2.2.2.3. Add persistence layer
+    - [ ] 2.2.2.1. Implement step state machine with validation
+    - [ ] 2.2.2.2. Add selectors for step progress and document status
+    - [ ] 2.2.2.3. Create persistence layer using localStorage
 
-- [ ] 2.3. Add Component Logic
-  - [ ] 2.3.1. ApiKeyModal Logic
-    - [ ] 2.3.1.1. Add form validation
-    - [ ] 2.3.1.2. Implement key storage
-    - [ ] 2.3.1.3. Add error handling
-  - [ ] 2.3.2. Stepper Logic
-    - [ ] 2.3.2.1. Add step navigation
-    - [ ] 2.3.2.2. Implement progress tracking
-    - [ ] 2.3.2.3. Create event handlers
+- [ ] 2.3. Add View State Management
+  - [ ] 2.3.1. Form to Stepper Transition
+    - [ ] 2.3.1.1. Add form submission handler with Zod validation
+    - [ ] 2.3.1.2. Create loading spinner with 8-bit animation
+    - [ ] 2.3.1.3. Implement TwoColumnLayout transition logic
+  - [ ] 2.3.2. Generation Progress
+    - [ ] 2.3.2.1. Add StepIcon state updates with animations
+    - [ ] 2.3.2.2. Implement step navigation with validation
+    - [ ] 2.3.2.3. Create progress indicators with Framer Motion
 
 ## Phase 3: Backend Integration
 
@@ -130,34 +121,33 @@ Integrate LLM functionality and implement document generation pipeline.
    - Error response → Error state → UI feedback
 
 2. Document Generation:
-   - README generation → Store update → Preview update
-   - BOM generation → Store update → Preview update
+   - README generation → Store update → Step update
+   - BOM generation → Store update → Step update
    - Generation error → Error handling → User feedback
 
 3. Download Flow:
    - Download trigger → File packaging → ZIP creation
-   - Progress updates → UI feedback
-   - Completion → Download prompt
+   - Completion → Immediate download
 
 ### Step-by-Step Tasks:
 
 - [ ] 3.1. Create LLM Integration
   - File: `src/lib/llm.ts` (create)
-  - [ ] 3.1.1. Set up API Client
-    - [ ] 3.1.1.1. Configure OpenRouter client
-    - [ ] 3.1.1.2. Add request interceptors
-    - [ ] 3.1.1.3. Implement error handling
+  - [ ] 3.1.1. Set up OpenRouter Client
+    - [ ] 3.1.1.1. Create API client with rate limiting and retries
+    - [ ] 3.1.1.2. Add request interceptors for API key and error handling
+    - [ ] 3.1.1.3. Implement streaming response handler with events
   - [ ] 3.1.2. Create Generation Methods
-    - [ ] 3.1.2.1. Add README generation
-    - [ ] 3.1.2.2. Implement BOM generation
-    - [ ] 3.1.2.3. Create retry logic
+    - [ ] 3.1.2.1. Add README generator with project context
+    - [ ] 3.1.2.2. Create BOM generator with tech stack analysis
+    - [ ] 3.1.2.3. Implement error recovery with fallback options
 
 - [ ] 3.2. Implement Download Logic
   - File: `src/lib/download.ts` (create)
   - [ ] 3.2.1. Create ZIP Utilities
-    - [ ] 3.2.1.1. Set up ZIP creation
-    - [ ] 3.2.1.2. Add file packaging
-    - [ ] 3.2.1.3. Implement progress tracking
+    - [ ] 3.2.1.1. Set up JSZip with proper file structure
+    - [ ] 3.2.1.2. Add markdown file packaging with metadata
+    - [ ] 3.2.1.3. Implement browser download with progress
 
 ## Phase 4: UI Polish
 
@@ -171,29 +161,18 @@ Add final polish, animations, and improve user experience.
    - Loading states → Loading animations
    - Error states → Error animations
 
-2. Performance Flow:
-   - Component mount → Performance tracking
-   - User interaction → Performance measurement
-   - Animation frame → Performance optimization
-
 ### Step-by-Step Tasks:
 
 - [ ] 4.1. Add Loading States
-  - [ ] 4.1.1. Implement skeleton loaders
-  - [ ] 4.1.2. Add progress indicators
-  - [ ] 4.1.3. Create loading animations
+  - [ ] 4.1.1. Create skeleton loader components with premade shadcn components
+  - [ ] 4.1.2. Implement loading spinners with theme colors use @eights-bit-loading-spinner
 
 - [ ] 4.2. Enhance Transitions
-  - [ ] 4.2.1. Add step transitions
-  - [ ] 4.2.2. Improve modal animations
-  - [ ] 4.2.3. Polish hover states
+  - [ ] 4.2.1. Add fadein/fadeout transitions for form/stepper views
+  - [ ] 4.2.2. Create smooth step transitions with opacity
 
 - [ ] 4.3. Improve Error States
-  - [ ] 4.3.1. Add error animations
-  - [ ] 4.3.2. Enhance error messages
-  - [ ] 4.3.3. Implement recovery flows
+  - [ ] 4.3.1. Create toast notifications with status icons
+  - [ ] 4.3.2. Implement error recovery UI with retry buttons
 
-- [ ] 4.4. Final Polish
-  - [ ] 4.4.1. Add micro-interactions
-  - [ ] 4.4.2. Optimize performance
-  - [ ] 4.4.3. Conduct accessibility audit 
+Note: Two-column layout with document preview functionality is preserved in the codebase for future enhancement. 
