@@ -10,7 +10,7 @@
  * ```
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -31,6 +31,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useApiKey } from "@/context/ApiKeyContext";
+import { EightBitSpinner } from "./ui/EightBitSpinner";
 
 const formSchema = z.object({
   apiKey: z.string().min(1, {
@@ -39,28 +41,55 @@ const formSchema = z.object({
 });
 
 export function ApiKeyModal() {
+  const { setApiKey, apiKey, isValid, clearApiKey } = useApiKey();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      apiKey: "",
+      apiKey: apiKey || "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  // Update form when apiKey changes
+  useEffect(() => {
+    if (apiKey) {
+      form.setValue("apiKey", apiKey);
+    }
+  }, [apiKey, form]);
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setIsLoading(true);
+      await setApiKey(values.apiKey);
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Failed to save API key:", error);
+      form.setError("apiKey", {
+        type: "manual",
+        message: "Failed to save API key. Please try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="rounded-2xl">
-          Set Openrouter API Key
+        <Button
+          variant={isValid ? "outline" : "default"}
+          className="rounded-2xl"
+          onClick={() => isValid && clearApiKey()}
+        >
+          {isValid ? "Clear API Key" : "Set Openrouter API Key"}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-neutral-800 text-base font-bold font-chivo-mono">
-            Set Openrouter Your API Key
+            Set Your Openrouter API Key
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -79,6 +108,7 @@ export function ApiKeyModal() {
                       type="password"
                       {...field}
                       className="border-0 bg-white rounded-2xl px-4 py-3 focus-visible:ring-0 focus-visible:ring-offset-0 font-sans"
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormMessage className="text-sm text-red-500" />
@@ -88,8 +118,9 @@ export function ApiKeyModal() {
             <Button
               type="submit"
               className="w-full bg-zinc-100 text-zinc-600 hover:bg-zinc-200 rounded-2xl p-3 h-auto font-normal text-xs font-chivo-mono"
+              disabled={isLoading}
             >
-              Save API Key
+              {isLoading ? <EightBitSpinner /> : "Save API Key"}
             </Button>
           </form>
         </Form>
