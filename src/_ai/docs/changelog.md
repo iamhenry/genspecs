@@ -4,6 +4,27 @@ This document tracks all modifications to GenSpecs, a Next.js web application fo
 
 ---
 
+## Version 0.1.8-alpha – Jan-16-2025 03:15 PM PST
+
+### Enhanced
+- Document Generation State Management
+  - Description: Refactored document generation steps and state management
+  - Features:
+    - Improved state transitions between generation steps
+    - Enhanced error handling and validation
+    - Optimized component interactions
+  - Status: Refactoring complete
+  - Reference: 8c7ba10d
+
+- Context Documentation Improvements
+  - Description: Enhanced context documentation across multiple modules
+  - Features:
+    - Updated documentation for GenerationContext
+    - Improved API key management documentation
+    - Enhanced state machine documentation
+  - Status: Documentation updated
+  - Reference: 1163c13a
+
 ## Version 0.1.7-alpha – Jan-16-2025 03:00 PM PST
 
 ### Enhanced
