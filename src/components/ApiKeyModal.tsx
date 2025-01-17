@@ -29,10 +29,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useApiKey } from "@/context/ApiKeyContext";
 import { EightBitSpinner } from "./ui/EightBitSpinner";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   apiKey: z.string().min(1, {
@@ -44,6 +46,7 @@ export function ApiKeyModal() {
   const { setApiKey, apiKey, isValid, clearApiKey } = useApiKey();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,15 +63,37 @@ export function ApiKeyModal() {
   }, [apiKey, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (isLoading) return;
+
     try {
       setIsLoading(true);
-      await setApiKey(values.apiKey);
+      const result = await setApiKey(values.apiKey);
+
+      if (!result.isValid) {
+        form.setError("apiKey", {
+          type: "manual",
+          message: result.error || "Failed to validate API key",
+        });
+        return;
+      }
+
+      // Only close if validation succeeded
       setIsOpen(false);
+      form.reset();
+
+      // Show success toast after dialog is closed
+      setTimeout(() => {
+        toast({
+          title: "API Key Saved",
+          description:
+            "Your OpenRouter API key has been successfully validated and saved.",
+        });
+      }, 100);
     } catch (error) {
       console.error("Failed to save API key:", error);
       form.setError("apiKey", {
         type: "manual",
-        message: "Failed to save API key. Please try again.",
+        message: "An unexpected error occurred. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -111,6 +136,17 @@ export function ApiKeyModal() {
                       disabled={isLoading}
                     />
                   </FormControl>
+                  <FormDescription className="text-xs text-neutral-500">
+                    Get your API key from{" "}
+                    <a
+                      href="https://openrouter.ai/keys"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:text-blue-600"
+                    >
+                      openrouter.ai/keys
+                    </a>
+                  </FormDescription>
                   <FormMessage className="text-sm text-red-500" />
                 </FormItem>
               )}

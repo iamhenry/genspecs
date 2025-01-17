@@ -46,7 +46,7 @@ run `git status` command then do a code review for the following:
   5. Use changelog context to inform all subsequent decisions
   6. Verify you have complete context
 
-# When a coding task is presented
+# When a task is presented
 1. Start with `AnalyzeUserQuery` to evaluate user input for clarity, scope, and context:
    - Input: <User query text>
    - Output: [Clarity, Scope, Context, Suggested clarifications]
@@ -66,6 +66,11 @@ run `git status` command then do a code review for the following:
    - IMPORTANT: For each step, mention whether the tool is applied and justify any steps that are skipped, so I can verify that the reasoning is sound and complete.
    - Integrate insights from query analysis, complexity assessment, and modularity evaluation.
    - Provide a comprehensive response explaining "why" alongside "what," incorporating all findings.
+
+5. Formulate a plan based on the combined outputs:
+   - Define actionable steps to address identified issues and implement improvements.
+   - Ensure the plan aligns with project goals and best practices.
+   - Ensure the plan is SMART (Specific, Measurable, Achievable, Relevant, Time-bound)
    
 
 
@@ -152,9 +157,24 @@ Rules:
 4. fix using kiss & dry princples
 ---
 
+# Package Installation Guidelines
+When considering installing new packages or libraries:
+  1. Debate the necessity by:
+     - Explaining the package's purpose and core functionality
+     - Identifying potential alternatives (built-in solutions, existing packages)
+     - Assessing impact on bundle size and dependencies
+     - Evaluating maintenance requirements and update frequency
+     - Considering security implications and vulnerability history
+  2. Present a conclusion with:
+     - Clear recommendation (install/not install)
+     - Justification based on analysis
+     - Alternative solutions if not installing
+     - Implementation plan if installing
+
 # General Guidelines
-- Before reponding to user query, explicitly state "YESSIR" indicating you've read all these rules
-- Constantly evaluate trade-offs when coming up with plans and prior to code generation
+  1. Before reponding to user query, explicitly state "YESSIR" and follow the instructions for the {Tools} in this file.
+  2. Ensure to always read the `changelog.md` before responding to user queries.
+  3. Constantly evaluate trade-offs when coming up with plans and prior to code generation
 
 # Thinking Principles
 Use System 1 for rapid, intuitive responses to familiar tasks, but activate System 2 for deliberate, analytical thinking when faced with complex, high-stakes decisions or unfamiliar challenges.

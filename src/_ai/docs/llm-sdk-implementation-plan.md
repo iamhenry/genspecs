@@ -131,10 +131,10 @@ Integrate LLM functionality and implement document generation pipeline.
 
 - [ ] 3.1. Create LLM Integration
   - File: `src/lib/llm.ts` (create)
-  - [ ] 3.1.1. Set up OpenRouter Client
-    - [ ] 3.1.1.1. Create API client with rate limiting and retries
-    - [ ] 3.1.1.2. Add request interceptors for API key and error handling
-    - [ ] 3.1.1.3. Implement streaming response handler with events
+  - [x] 3.1.1. Set up OpenRouter Client
+    - [x] 3.1.1.1. Create API client with rate limiting and retries
+    - [x] 3.1.1.2. Add request interceptors for API key and error handling
+    - [x] 3.1.1.3. Implement streaming response handler with events
   - [ ] 3.1.2. Create Generation Methods
     - [ ] 3.1.2.1. Add README generator with project context
     - [ ] 3.1.2.2. Create BOM generator with tech stack analysis

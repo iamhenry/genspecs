@@ -18,11 +18,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { encrypt, decrypt } from "@/lib/encryption";
 
+interface ValidationResult {
+  isValid: boolean;
+  error?: string;
+}
+
 interface ApiKeyContextType {
   apiKey: string | null;
   isValid: boolean;
-  setApiKey: (key: string) => Promise<void>;
-  validateApiKey: () => Promise<boolean>;
+  setApiKey: (key: string) => Promise<ValidationResult>;
+  validateApiKey: () => Promise<ValidationResult>;
   clearApiKey: () => void;
 }
 
@@ -52,47 +57,121 @@ export function ApiKeyProvider({ children }: { children: React.ReactNode }) {
     loadApiKey();
   }, []);
 
-  const setApiKey = async (key: string) => {
+  const validateApiKey = async (
+    keyToValidate?: string
+  ): Promise<ValidationResult> => {
+    const keyToCheck = keyToValidate || apiKey;
+    console.log("🔑 Starting API key validation...");
+
+    if (!keyToCheck) {
+      console.log("❌ No API key provided");
+      setIsValid(false);
+      return { isValid: false, error: "API key is required" };
+    }
+
     try {
-      const encryptedKey = await encrypt(key);
-      localStorage.setItem(STORAGE_KEY, encryptedKey);
-      setApiKeyState(key);
-      await validateApiKey();
+      console.log("🔄 Making request to OpenRouter auth/key endpoint...");
+      const response = await fetch("https://openrouter.ai/api/v1/auth/key", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${keyToCheck}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(`📡 Response status: ${response.status}`);
+
+      // Handle specific error cases
+      if (!response.ok) {
+        setIsValid(false);
+        let errorResult: ValidationResult;
+
+        switch (response.status) {
+          case 401:
+            errorResult = {
+              isValid: false,
+              error: "Invalid API key. Please check your OpenRouter API key.",
+            };
+            console.log("❌ Error 401: Invalid API key");
+            break;
+          case 402:
+            errorResult = {
+              isValid: false,
+              error:
+                "Insufficient credits. Please add credits to your account.",
+            };
+            console.log("❌ Error 402: Insufficient credits");
+            break;
+          case 403:
+            errorResult = {
+              isValid: false,
+              error: "Access forbidden. Please check your API key permissions.",
+            };
+            console.log("❌ Error 403: Access forbidden");
+            break;
+          case 429:
+            errorResult = {
+              isValid: false,
+              error: "Rate limit exceeded. Please try again later.",
+            };
+            console.log("❌ Error 429: Rate limit exceeded");
+            break;
+          default:
+            errorResult = {
+              isValid: false,
+              error: `Validation failed (Status: ${response.status})`,
+            };
+            console.log(`❌ Error ${response.status}: Unknown error`);
+        }
+        return errorResult;
+      }
+
+      // If response is ok, parse the response
+      const data = await response.json();
+      console.log("✅ API key validated successfully!", data);
+
+      setIsValid(true);
+      return { isValid: true };
     } catch (error) {
-      console.error("Failed to set API key:", error);
-      throw error;
+      console.error("❌ Validation error:", error);
+      setIsValid(false);
+      return {
+        isValid: false,
+        error:
+          "Failed to validate API key. Please check your internet connection.",
+      };
     }
   };
 
-  const validateApiKey = async () => {
-    if (!apiKey) {
-      setIsValid(false);
-      return false;
-    }
-
+  const setApiKey = async (key: string): Promise<ValidationResult> => {
     try {
-      const response = await fetch(
-        "https://openrouter.ai/api/v1/auth/validate",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      console.log("🔐 Attempting to set new API key...");
+      // Validate first
+      const validationResult = await validateApiKey(key);
 
-      const isValidKey = response.ok;
-      setIsValid(isValidKey);
-      return isValidKey;
+      if (!validationResult.isValid) {
+        console.log("❌ Validation failed, key not saved");
+        return validationResult;
+      }
+
+      // Only save if validation passes
+      const encryptedKey = await encrypt(key);
+      localStorage.setItem(STORAGE_KEY, encryptedKey);
+      setApiKeyState(key);
+      console.log("✅ API key encrypted and saved successfully");
+
+      return { isValid: true };
     } catch (error) {
-      console.error("Failed to validate API key:", error);
-      setIsValid(false);
-      return false;
+      console.error("❌ Error saving API key:", error);
+      return {
+        isValid: false,
+        error: "Failed to save API key. Please try again.",
+      };
     }
   };
 
   const clearApiKey = () => {
+    console.log("🗑️ Clearing API key from storage");
     localStorage.removeItem(STORAGE_KEY);
     setApiKeyState(null);
     setIsValid(false);

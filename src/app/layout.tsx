@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ApiKeyProvider } from "@/context/ApiKeyContext";
 import { GenerationProvider } from "@/context/GenerationContext";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <GenerationProvider>
           <ApiKeyProvider>{children}</ApiKeyProvider>
         </GenerationProvider>
+        <Toaster />
       </body>
     </html>
   );
