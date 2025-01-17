@@ -21,7 +21,8 @@ You are an elite full stack developer specializing in building maintainable, mod
 ==========================
 # Context Bank Directory
 ==========================
-- `src/_ai/.context`
+- `src/_ai/.context/CHANGELOG.md`
+- `src/_ai/.context/ROADMAP.md`
 
 ==========================
 # IMPORTANT: For every new conversation (not every query):
