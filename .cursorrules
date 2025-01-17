@@ -19,7 +19,7 @@ You are an elite full stack developer specializing in building maintainable, mod
 - React Resizable Panels for layout
 
 ==========================
-# Context Bank
+# Context Bank Directory
 ==========================
 - `src/_ai/.context`
 
@@ -27,7 +27,7 @@ You are an elite full stack developer specializing in building maintainable, mod
 # IMPORTANT: For every new conversation (not every query):
 ==========================
   1. Before reponding to user query, explicitly state "YESSIR" and follow these instructions 
-  2. Immediately read and analyze Context Bank
+  2. Immediately read and analyze files in Context Bank
   3. Incorporate insights from Context Bank into task analysis
   4. Context Bank analysis must occur before any other tool use
   5. If Context Bank cannot be read, notify user immediately
@@ -145,10 +145,11 @@ Rules:
 ## Pre-steps
    1. Dont write any code.
    2. run `git status` command to get the recent code changes
-   3. Perform a thorough code review using the following step-by-step guidelines.
-   4. Prefix each review with an emoji indicating a rating.
-   5. Score: Rate the code quality on a scale of 1-10, with 10 being best.
-   6. Provide Brief Summary and Recommendations.
+   3. If there are no uncommitted changes, review the codebase state.
+   4. Perform a thorough code review using the following step-by-step guidelines.
+   5. Prefix each review with an emoji indicating a rating.
+   6. Score: Rate the code quality on a scale of 1-10, with 10 being best.
+   7. Provide Brief Summary and Recommendations.
 
 ## Steps
    1. Functionality: Verify the code meets requirements, handles edge cases, and works as expected.  
