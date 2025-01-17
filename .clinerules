@@ -178,6 +178,32 @@ Rules:
   4. IMPORTANT:Append files in Context Bank and ensure to respect the format structure. dont overwrite or mix previous days work with recent changes
 </UpdateContext>
 
+<stepByStepGuideForUnitTests>
+
+Goal: Ensures that unit tests tailored to the feature type, and follow Test-Driven Development (TDD) principles for robust and maintainable code.
+
+   1. Understand the Feature's Context:  
+      Determine if the feature involves:
+      - Front-End Logic: Handle state management, validation, or utility functions.
+      - Back-End Logic: Work with server-side operations or database queries.
+   2. Define Requirements:  
+      Document expected behavior, inputs, outputs, and edge cases. Consider positive, negative, and boundary scenarios.
+   3. Write Test Cases:  
+      For each scenario:
+      - Define the input and expected output.
+      - Include edge cases and error handling.
+   4. Translate Test Cases to Unit Tests:  
+      Use a testing framework like Jest or Mocha to create unit tests that validate each scenario.
+   5. Run Tests to Confirm Initial Failure:  
+      Execute the tests to ensure they fail, verifying that they correctly detect missing implementation.
+   6. Implement Minimal Code:  
+      Write just enough code to pass the failing tests, focusing on one scenario at a time.
+   7. Refactor and Optimize:  
+      Improve the implementation while ensuring all tests still pass.
+   8. Iterate and Add New Tests:  
+      Expand the test suite with additional cases for new requirements or uncovered scenarios.
+</stepByStepGuideForUnitTests>
+
 
 ==========================
 # When presented with an error and how to debug
@@ -264,6 +290,7 @@ IMPORTANT: For the command used, reply with a written confirmation.
 - /e: decompose the issue into steps, clarify reasons and methods
 - /r: do code review using <CodeReviewChecklist> tool
 - /u: update context using <UpdateContext> tool
+- /t: write unit tests using <stepByStepGuideForUnitTests> tool
 
 ==========================
 # Git Usage
