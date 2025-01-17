@@ -50,13 +50,8 @@ const initialState: GenerationState = {
     userStories: [],
   },
   documents: {
+    readme: { type: "readme", content: "", status: "idle" },
     bom: { type: "bom", content: "", status: "idle" },
-    roadmap: { type: "roadmap", content: "", status: "idle" },
-    "implementation-plan": {
-      type: "implementation-plan",
-      content: "",
-      status: "idle",
-    },
   },
   steps: [
     {
@@ -65,7 +60,15 @@ const initialState: GenerationState = {
       description: "Enter project information",
       isCompleted: false,
       isActive: true,
-      documentType: "bom",
+      documentType: "readme",
+    },
+    {
+      id: "readme",
+      title: "README",
+      description: "Generate and review README",
+      isCompleted: false,
+      isActive: false,
+      documentType: "readme",
     },
     {
       id: "bom",
@@ -74,22 +77,6 @@ const initialState: GenerationState = {
       isCompleted: false,
       isActive: false,
       documentType: "bom",
-    },
-    {
-      id: "roadmap",
-      title: "Roadmap",
-      description: "Generate and review roadmap",
-      isCompleted: false,
-      isActive: false,
-      documentType: "roadmap",
-    },
-    {
-      id: "implementation-plan",
-      title: "Implementation Plan",
-      description: "Generate and review implementation plan",
-      isCompleted: false,
-      isActive: false,
-      documentType: "implementation-plan",
     },
   ],
 };
