@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Type definitions for the document generation system.
+ * Contains all type interfaces used in the generation workflow.
+ * 
+ * @module generation-types
+ * 
+ * Types defined:
+ * - DocumentType: Types of documents that can be generated
+ * - DocumentStatus: Possible states of a document
+ * - DocumentState: Complete state of a document
+ * - StepState: State of a generation workflow step
+ * - GenerationState: Complete state of the generation system
+ */
+
 export type DocumentType = 'bom' | 'roadmap' | 'implementation-plan';
 
 export type DocumentStatus = 'idle' | 'generating' | 'draft' | 'accepted' | 'error';

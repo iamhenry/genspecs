@@ -1,3 +1,19 @@
+/**
+ * @fileoverview Context provider for managing the state of document generation workflow.
+ * Handles the multi-step process of generating and managing various project documents.
+ *
+ * @module GenerationContext
+ * @requires React
+ * @requires generation types
+ *
+ * Features:
+ * - Step-by-step workflow management
+ * - Document state management (BOM, Roadmap, Implementation Plan)
+ * - Project details persistence
+ * - State persistence in localStorage
+ * - Type-safe context with TypeScript
+ */
+
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";

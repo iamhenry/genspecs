@@ -1,3 +1,18 @@
+/**
+ * @fileoverview Context provider for managing OpenRouter API key state and operations.
+ * Handles encryption, storage, validation, and access to the API key throughout the application.
+ *
+ * @module ApiKeyContext
+ * @requires React
+ * @requires encryption
+ *
+ * Features:
+ * - Secure storage of API key using encryption
+ * - Automatic validation against OpenRouter API
+ * - Persistence in localStorage
+ * - Type-safe context with TypeScript
+ */
+
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
