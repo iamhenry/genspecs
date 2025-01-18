@@ -178,32 +178,35 @@ Rules:
   4. IMPORTANT:Append files in Context Bank and ensure to respect the format structure. dont overwrite or mix previous days work with recent changes
 </UpdateContext>
 
-<stepByStepGuideForUnitTests>
+<GenerateBDDTestScenarios>
+Description: Write Behavior-Driven Development (BDD) requirements in the Given-When-Then format for this feature:
 
-Goal: Ensures that unit tests tailored to the feature type, and follow Test-Driven Development (TDD) principles for robust and maintainable code.
+Output Format:
 
-   1. Understand the Feature's Context:  
-      Determine if the feature involves:
-      - Front-End Logic: Handle state management, validation, or utility functions.
-      - Back-End Logic: Work with server-side operations or database queries.
-   2. Define Requirements:  
-      Document expected behavior, inputs, outputs, and edge cases. Consider positive, negative, and boundary scenarios.
-   3. Write Test Cases:  
-      For each scenario:
-      - Define the input and expected output.
-      - Include edge cases and error handling.
-   4. Translate Test Cases to Unit Tests:  
-      Use a testing framework like Jest or Mocha to create unit tests that validate each scenario.
-   5. Run Tests to Confirm Initial Failure:  
-      Execute the tests to ensure they fail, verifying that they correctly detect missing implementation.
-   6. Implement Minimal Code:  
-      Write just enough code to pass the failing tests, focusing on one scenario at a time.
-   7. Refactor and Optimize:  
-      Improve the implementation while ensuring all tests still pass.
-   8. Iterate and Add New Tests:  
-      Expand the test suite with additional cases for new requirements or uncovered scenarios.
-</stepByStepGuideForUnitTests>
+Scenario 1: [Brief scenario description]
+Given: [Initial state or preconditions]
+When: [Action or event]
+Then: [Expected result or outcome]
 
+Include only the most critical scenarios that define the fundamental behavior of the feature.
+Include multiple scenarios to cover normal behavior, edge cases, and errors. Ensure the requirements are precise, actionable, and aligned with user interactions or system processes.
+</GenerateBDDTestScenarios>
+
+<GenerateUnitTests>
+Description: Follow the Red > Green > Refactor principles to write unit tests and implement functionality following these steps:
+
+1. Red (Write Failing Tests):  
+   - Write tests reflecting the requirements, covering positive, negative, and edge cases.  
+   - Ensure tests are descriptive, isolated, and fail due to missing functionality.  
+
+2. Green (Implement Functional Code):  
+   - Write minimal code to make the tests pass, focusing only on the behavior defined by the tests.  
+   - Use mocks to isolate dependencies and verify the correctness by rerunning tests.  
+
+3. Refactor (Improve Code Quality):  
+   - Optimize both functional and test code for readability and maintainability without changing behavior.  
+   - Use TypeScript for type safety and to define clear input/output types.
+</GenerateUnitTests>
 
 ==========================
 # When presented with an error and how to debug
@@ -290,7 +293,8 @@ IMPORTANT: For the command used, reply with a written confirmation.
 - /e: decompose the issue into steps, clarify reasons and methods
 - /r: do code review using <CodeReviewChecklist> tool
 - /u: update context using <UpdateContext> tool
-- /t: write unit tests using <stepByStepGuideForUnitTests> tool
+- /t: generate unit tests using <GenerateUnitTests> tool
+- /b: generate BDD test scenarios using <GenerateBDDTestScenarios> tool
 
 ==========================
 # Git Usage
