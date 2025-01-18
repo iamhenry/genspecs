@@ -5,12 +5,18 @@ The workflow should be almost like an onboarding experience where it basically g
 
 
 # User stories (MVP)
-- as a user i want to be able to give a prject name, description, tech stack, user stories and it will generate the following documents: readme, bill materials.
-- as a user i want to be automatically guided through the process and only move on to generating the next document once the document has been generated
-- at the end of this workflow/wizard flow i want to be able to download the markdown files all at once in a zip file
-- as a user if i refresh the page i want to be able to preserve the data i have provided
-- as a user i want to be able to bring my own API key from "openrouter"
-- as a user i want to see the stepper upon submitting the project information form
+- Project Document Generation
+  as a user i want to be able to give a project name, description, tech stack, user stories and it will generate the following documents: readme, bill materials.
+- Guided Workflow
+  as a user i want to be automatically guided through the process and only move on to generating the next document once the document has been generated
+- Download All Documents
+  at the end of this workflow/wizard flow i want to be able to download the markdown files all at once in a zip file
+- Data Preservation
+  as a user if i refresh the page i want to be able to preserve the data i have provided
+- API Key Integration
+  as a user i want to be able to bring my own API key from "openrouter"
+- Stepper Visibility
+  as a user i want to see the stepper upon submitting the project information form
 
 # User Stories (On hold)
 - as a user i Want to be able to make changes to the drafted document and have the ability to regenerate the document
@@ -19,6 +25,10 @@ The workflow should be almost like an onboarding experience where it basically g
 - as a user i want to be able to see a skeletong loading state for when the current document is being generate
 - as a user i want to first fill out the simple form, then taken to a two column layout where the left sidebar is a vertical progress stepper that includes the list of documents that will be generated, and the right column is where the markdown document will display it's contents to review
 - as a user i want to be able to request changes using the chat input field and not modify the existing text editor in the right column. that should be read-only
+
+# Requirements
+- I will provide the document templates for the readme and bom
+- I will provide the generation prompt for readme and bom that will be used to generate the documents when calling the openrouter api
 
 # Dependencies (stable versions)
 - tailwind

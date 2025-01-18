@@ -113,7 +113,15 @@ Implement all frontend logic, state management, and user interactions.
 Integrate LLM functionality and implement document generation pipeline.
 
 ### Data Flow:
-1. Generation Pipeline:
+
+1. Project Context Collection:
+   - ContactForm collects:
+     - Project name
+     - Description (including tech stack)
+     - User stories
+   - Data is validated and stored in GenerationContext
+
+2. Generation Pipeline:
    - Form submission → Validation → LLM request
    - LLM response → Store update → UI update
    - Error response → Error state → UI feedback
@@ -173,4 +181,4 @@ Add final polish, animations, and improve user experience.
   - [ ] 4.3.1. Create toast notifications with status icons
   - [ ] 4.3.2. Implement error recovery UI with retry buttons
 
-Note: Two-column layout with document preview functionality is preserved in the codebase for future enhancement. 
+Note: Two-column layout with document preview functionality is preserved in the codebase for future enhancement.
