@@ -1,7 +1,6 @@
 # Development Roadmap
 
 ## Phase 1: Static UI Implementation (Complexity: 2)
-Duration: 1 week
 
 ### Milestone 1.1: Project Setup
 - [x] Initialize Next.js project with TypeScript
@@ -24,7 +23,6 @@ Duration: 1 week
 - [x] Add skeleton loading states
 
 ## Phase 2: Frontend Core Implementation (Complexity: 3)
-Duration: 1-2 weeks
 
 ### Milestone 2.1: State Management
 - [x] Implement local storage based state management
@@ -43,23 +41,19 @@ Duration: 1-2 weeks
 - [ ] Implement file saving mechanisms
 
 ## Phase 3: Backend Integration (Complexity: 2)
-Duration: 1 week
 
 ### Milestone 3.1: API Integration
 - [x] Set up OpenRouter API integration
 - [x] Implement API key management
 - [x] Create error handling system
-- [ ] Set up retry mechanisms
-- [ ] Implement rate limiting
+- [ ] Use OpenRouter rate limiting
 
 ### Milestone 3.2: AI Integration
-- [ ] Set up Vercel AI SDK
 - [ ] Implement document generation logic for BOM and README
 - [ ] Create prompt engineering system
 - [ ] Add streaming response handling
 
 ## Phase 4: UI Polish and Enhancement (Complexity: 2)
-Duration: 1 week
 
 ### Milestone 4.1: Animation Implementation
 - [ ] Add Framer Motion animations
@@ -74,7 +68,6 @@ Duration: 1 week
 - [ ] Implement progress tracking
 
 ## Testing and Deployment Phase (Complexity: 1)
-Duration: 3-4 days
 
 ### Milestone 5.1: Testing
 - [ ] Implement unit tests
