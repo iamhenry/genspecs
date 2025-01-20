@@ -31,9 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GenerationProvider>
-          <ApiKeyProvider>{children}</ApiKeyProvider>
-        </GenerationProvider>
+        <ApiKeyProvider>
+          <GenerationProvider>{children}</GenerationProvider>
+        </ApiKeyProvider>
         <Toaster />
       </body>
     </html>

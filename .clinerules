@@ -295,6 +295,7 @@ IMPORTANT: For the command used, reply with a written confirmation.
 - /u: update context using <UpdateContext> tool
 - /t: generate unit tests using <GenerateUnitTests> tool
 - /b: generate BDD test scenarios using <GenerateBDDTestScenarios> tool
+- /?: show all commands omitting everything else
 
 ==========================
 # Git Usage

@@ -133,9 +133,10 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
     // Start generating current document if idle
     const currentDoc = documents[currentStep.id as DocumentType];
     if (currentDoc && currentDoc.status === "idle") {
+      console.log(`Starting generation for ${currentStep.id}`);
       updateDocument(currentStep.id as DocumentType, { status: "generating" });
     }
-  }, [currentIndex, onChange, setCurrentStep, documents, updateDocument]);
+  }, [currentIndex]); // Only depend on currentIndex changes
 
   return (
     <div className="flex flex-col h-full">

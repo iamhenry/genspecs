@@ -60,13 +60,6 @@ export function ContactForm() {
     try {
       setIsSubmitting(true);
 
-      // Parse tech stack from description
-      const techStackRegex = /tech stack:?\s*([^.]+)/i;
-      const techStackMatch = values.description.match(techStackRegex);
-      const techStack = techStackMatch
-        ? techStackMatch[1].split(/[,/]/).map((tech) => tech.trim())
-        : [];
-
       // Parse user stories into array
       const userStories = values.userStories
         .split(/\n/)
@@ -77,7 +70,6 @@ export function ContactForm() {
       await updateProjectDetails({
         name: values.projectName,
         description: values.description,
-        techStack,
         userStories,
       });
 

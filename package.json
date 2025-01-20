@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "dotenv -e .env.test -- vitest",
+    "test:watch": "dotenv -e .env.test -- vitest --watch",
+    "test:ui": "dotenv -e .env.test -- vitest --ui",
+    "test:coverage": "dotenv -e .env.test -- vitest run --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -31,13 +35,21 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/ui": "^3.0.2",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.23",
+    "jsdom": "^26.0.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.0.2"
   }
 }

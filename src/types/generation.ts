@@ -38,7 +38,6 @@ export interface GenerationState {
   projectDetails: {
     name: string;
     description: string;
-    techStack: string[];
     userStories: string[];
   };
   documents: Record<DocumentType, DocumentState>;

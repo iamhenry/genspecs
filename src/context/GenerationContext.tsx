@@ -22,6 +22,8 @@ import {
   GenerationState,
   DocumentState,
 } from "@/types/generation";
+import { generateReadme } from "@/lib/llm";
+import { useApiKey } from "./ApiKeyContext";
 
 interface GenerationContextType extends GenerationState {
   // Step Actions
@@ -46,7 +48,6 @@ const initialState: GenerationState = {
   projectDetails: {
     name: "",
     description: "",
-    techStack: [],
     userStories: [],
   },
   documents: {
@@ -91,6 +92,45 @@ export function GenerationProvider({
   children: React.ReactNode;
 }) {
   const [state, setState] = useState<GenerationState>(initialState);
+  const { apiKey } = useApiKey();
+
+  // Watch for document status changes
+  useEffect(() => {
+    const generateDocuments = async () => {
+      const readmeDoc = state.documents.readme;
+      if (readmeDoc.status === "generating") {
+        console.log("Starting README generation from context...");
+        if (!apiKey) {
+          console.error("Cannot generate README: No API key provided");
+          updateDocument("readme", {
+            status: "error",
+            error: "OpenRouter API key is required",
+          });
+          return;
+        }
+        try {
+          const result = await generateReadme(
+            state.projectDetails,
+            undefined,
+            apiKey
+          );
+          updateDocument("readme", {
+            content: result.content,
+            status: result.status,
+            error: result.error,
+          });
+        } catch (error) {
+          console.error("Failed to generate README from context:", error);
+          updateDocument("readme", {
+            status: "error",
+            error: error instanceof Error ? error.message : "Unknown error",
+          });
+        }
+      }
+    };
+
+    generateDocuments();
+  }, [state.documents.readme.status, apiKey]);
 
   useEffect(() => {
     // Load state from localStorage on mount
