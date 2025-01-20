@@ -193,18 +193,18 @@ Include multiple scenarios to cover normal behavior, edge cases, and errors. Ens
 </GenerateBDDTestScenarios>
 
 <GenerateUnitTests>
-Description: Follow the Red > Green > Refactor principles to write unit tests and implement functionality following these steps:
+Description: Follow the Red > Green > Refactor TDD principles to write unit tests and implement functionality following these steps:
 
 1. Red (Write Failing Tests):  
-   - Write tests reflecting the requirements, covering positive, negative, and edge cases.  
+   - Write tests reflecting the requirements provided.
    - Ensure tests are descriptive, isolated, and fail due to missing functionality.  
 
 2. Green (Implement Functional Code):  
-   - Write minimal code to make the tests pass, focusing only on the behavior defined by the tests.  
-   - Use mocks to isolate dependencies and verify the correctness by rerunning tests.  
+   - Write minimal code to make the tests pass, focusing only on the behavior defined by the tests.
 
 3. Refactor (Improve Code Quality):  
-   - Optimize both functional and test code for readability and maintainability without changing behavior.  
+   - Optimize both functional and test code for readability and maintainability without changing behavior.
+   - Consider code smells and refactor the code to improve readability and maintainability.
    - Use TypeScript for type safety and to define clear input/output types.
 </GenerateUnitTests>
 
