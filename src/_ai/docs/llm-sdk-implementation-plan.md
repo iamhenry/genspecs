@@ -144,7 +144,8 @@ Integrate LLM functionality and implement document generation pipeline.
     - [x] 3.1.1.2. Add request interceptors for API key and error handling
     - [x] 3.1.1.3. Implement streaming response handler with events
   - [ ] 3.1.2. Create Generation Methods
-    - [ ] 3.1.2.1. Add README generator with project context
+    - [ ] 3.1.2.1. Add README generator with project context 
+    - [ ] // TODO: Add input sanitization for user-provided content
     - [ ] 3.1.2.2. Create BOM generator with tech stack analysis
     - [ ] 3.1.2.3. Implement error recovery with fallback options
 
