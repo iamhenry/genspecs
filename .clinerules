@@ -175,7 +175,7 @@ Rules:
   1. run a git command to get the recent changes
   2. Include the changes but also explain why we made those decisions
   3. Ensure to grab the date and timestamp from the git commit to use them in the changelog. 
-  4. IMPORTANT:Append files in Context Bank and ensure to respect the format structure. dont overwrite or mix previous days work with recent changes
+  4. IMPORTANT:Append files in Context Bank (roadmap.md and changelog.md) and ensure to respect the format structure. dont overwrite or mix previous days work with recent changes
 </UpdateContext>
 
 <GenerateBDDTestScenarios>

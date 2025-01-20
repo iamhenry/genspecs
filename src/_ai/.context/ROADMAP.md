@@ -46,12 +46,15 @@
 - [x] Set up OpenRouter API integration
 - [x] Implement API key management
 - [x] Create error handling system
-- [ ] Use OpenRouter rate limiting
+- [x] Use OpenRouter rate limiting
 
 ### Milestone 3.2: AI Integration
-- [ ] Implement document generation logic for BOM and README
-- [ ] Create prompt engineering system
-- [ ] Add streaming response handling
+- [x] Implement document generation logic for README
+- [ ] Implement document generation logic for BOM
+- [x] Create prompt engineering system for README
+- [ ] Create prompt engineering system for BOM
+- [x] Add streaming response handling for README
+- [ ] Add streaming response handling for BOM
 
 ## Phase 4: UI Polish and Enhancement (Complexity: 2)
 
