@@ -63,7 +63,7 @@ Generate the README following the structure exactly as specified in the system p
 
     return NextResponse.json({
       content: response.choices[0]?.message?.content || '',
-      status: 'draft',
+      status: 'accepted',
       type: 'readme',
       lastUpdated: new Date(),
     });

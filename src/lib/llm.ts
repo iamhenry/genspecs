@@ -204,7 +204,7 @@ Generate the README following the structure exactly as specified in the system p
       return {
         type: 'readme' as const,
         content,
-        status: 'draft' as DocumentStatus,
+        status: 'accepted' as DocumentStatus,
         lastUpdated: new Date(),
       };
     } 
