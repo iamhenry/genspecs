@@ -13,23 +13,15 @@ Note: The "project context" used in these scenarios comes from the ContactForm c
   - Description & Tech stack
   - User stories
 - When: README generation is triggered
-- Then: Should generate complete README matching template structure
-  - Includes all sections from src/prompt-templates/readme.md
-  - Shows success toast notification
+- Then: Should generate complete README matching template structure from the prompt in the LLM Api call
+  - Proceeds to show the generating state in the stepper component
 
 ### 2. Form Validation
 - Given: One or more required fields are missing
 - When: User attempts to submit form
 - Then: Submit button should be disabled
-  - Should show validation error messages
   - Should not allow form submission
 
-### 3. Template Validation
-- Given: Complete project context
-- When: README generation is triggered
-- Then: Should validate generated document matches template structure
-  - All sections from src/prompt-templates/readme.md must be present
-  - Should show error if template structure is incomplete
 
 ## BOM Generator
 
@@ -37,16 +29,9 @@ Note: The "project context" used in these scenarios comes from the ContactForm c
 - Given: README document has been successfully generated
 - When: BOM generation is triggered
 - Then: Should generate complete BOM matching template structure
-  - Includes all sections from src/prompt-templates/bom.md
+  - Match the prompt structure in the LLM Api call
   - Should update the Stepper component to reflect the current step
   - Should use data from generated README rather than form data
-
-### 2. Template Validation
-- Given: README document has been successfully generated
-- When: BOM generation is triggered
-- Then: Should validate generated document matches template structure
-  - All sections from src/prompt-templates/bom.md must be present
-  - Should show error if template structure is incomplete
 
 ## Error Handling
 
