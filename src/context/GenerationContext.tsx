@@ -22,7 +22,7 @@ import {
   GenerationState,
   DocumentState,
 } from "@/types/generation";
-import { generateReadme } from "@/lib/llm";
+import { generateReadme, generateBom } from "@/lib/llm";
 import { useApiKey } from "./ApiKeyContext";
 
 interface GenerationContextType extends GenerationState {
@@ -94,9 +94,10 @@ export function GenerationProvider({
   const [state, setState] = useState<GenerationState>(initialState);
   const { apiKey } = useApiKey();
 
-  // Watch for document status changes
+  // Watch for document status changes and trigger generation
   useEffect(() => {
     const generateDocuments = async () => {
+      // Handle README Generation
       const readmeDoc = state.documents.readme;
       if (readmeDoc.status === "generating") {
         console.log("Starting README generation from context...");
@@ -114,6 +115,7 @@ export function GenerationProvider({
             undefined,
             apiKey
           );
+          console.log("README Generation Result:", result);
           updateDocument("readme", {
             content: result.content,
             status: result.status,
@@ -127,10 +129,55 @@ export function GenerationProvider({
           });
         }
       }
+
+      // Handle BOM Generation
+      const bomDoc = state.documents.bom;
+      if (bomDoc.status === "generating") {
+        console.log("Starting BOM generation from context...");
+        if (!apiKey) {
+          console.error("Cannot generate BOM: No API key provided");
+          updateDocument("bom", {
+            status: "error",
+            error: "OpenRouter API key is required",
+          });
+          return;
+        }
+        try {
+          const result = await generateBom(
+            state.projectDetails,
+            readmeDoc,
+            apiKey
+          );
+          console.log("BOM Generation Result:", result);
+          updateDocument("bom", {
+            content: result.content,
+            status: result.status,
+            error: result.error,
+          });
+        } catch (error) {
+          console.error("Failed to generate BOM from context:", error);
+          updateDocument("bom", {
+            status: "error",
+            error: error instanceof Error ? error.message : "Unknown error",
+          });
+        }
+      }
     };
 
     generateDocuments();
-  }, [state.documents.readme.status, apiKey]);
+  }, [state.documents.readme.status, state.documents.bom.status, apiKey]);
+
+  // Watch for README acceptance to trigger BOM generation
+  useEffect(() => {
+    const readmeDoc = state.documents.readme;
+    const bomDoc = state.documents.bom;
+
+    if (readmeDoc.status === "accepted" && bomDoc.status === "idle") {
+      console.log("README accepted, automatically starting BOM generation...");
+      updateDocument("bom", { status: "generating" });
+      setCurrentStep("bom");
+    }
+  }, [state.documents.readme.status]);
 
   useEffect(() => {
     // Load state from localStorage on mount
