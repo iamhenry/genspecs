@@ -10,7 +10,12 @@ The workflow should be almost like an onboarding experience where it basically g
 - Guided Workflow
   as a user i want to be automatically guided through the process and only move on to generating the next document once the document has been generated
 - Download All Documents
-  at the end of this workflow/wizard flow i want to be able to download the markdown files all at once in a zip file
+  - as a user i want to be able to download all the generated documents as a final step in the flow
+  - as a user i want to be able to download the markdown files all at once in a zip file
+  - as a user i should see a disabled button when the document is generating and a loading state
+  - as a user i should see an enabled download button once all the documents have been generated
+  - as a user i should see a disabled download button if the documents are still generating
+  - as a user the button label should say "Download All Documents" once the documents have been generated successfully
 - Data Preservation
   as a user if i refresh the page i want to be able to preserve the data i have provided
 - API Key Integration
