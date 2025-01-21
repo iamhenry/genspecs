@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Test suite for the README generation functionality.
+ * Tests the generation of README documents using the OpenRouter API,
+ * including success cases, error handling, and state management.
+ */
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { generateReadme, getOpenRouterClient } from '../llm';
 import { GenerationState } from '@/types/generation';

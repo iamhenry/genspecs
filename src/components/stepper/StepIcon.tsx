@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Step icon component for the vertical stepper.
+ * Renders different icons based on step state (idle, loading, done, error)
+ * with animations and styling. Includes an 8-bit style loading spinner
+ * for the loading state.
+ */
+
 import { Circle, CircleCheck, CircleAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EightBitSpinner } from "@/components/ui/EightBitSpinner";

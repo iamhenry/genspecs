@@ -1,3 +1,10 @@
+/**
+ * @fileoverview API route handler for README generation.
+ * Processes project details and generates a structured README document
+ * using the OpenRouter API with Claude 3.5 Sonnet. Includes error handling
+ * and validation of required fields.
+ */
+
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { GenerationState } from '@/types/generation';

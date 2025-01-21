@@ -1,3 +1,10 @@
+/**
+ * @fileoverview API route handler for Bill of Materials (BOM) generation.
+ * Processes project details and README state to generate a structured BOM document
+ * using the OpenRouter API with Claude 3.5 Sonnet. Includes comprehensive error
+ * handling, logging, and validation of prerequisites.
+ */
+
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { DocumentState } from '@/types/generation';

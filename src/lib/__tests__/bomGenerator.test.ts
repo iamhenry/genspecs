@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Test suite for the Bill of Materials (BOM) generation functionality.
+ * Tests the generation of BOM documents using the OpenRouter API,
+ * including success cases, error handling, and dependency on README state.
+ */
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { generateBom, getOpenRouterClient } from '../llm';
 import { GenerationState } from '@/types/generation';
