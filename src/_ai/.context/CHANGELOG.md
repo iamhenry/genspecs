@@ -4,6 +4,24 @@ This document tracks all modifications to GenSpecs, a Next.js web application fo
 
 ---
 
+## Version 0.1.12-alpha – Jan-21-2025 01:19 PM PST
+
+### Enhanced
+- BOM Generator Implementation
+  - Description: Implemented Bill of Materials (BOM) generation functionality
+  - Features:
+    - Added BOM generation API endpoint and route handling
+    - Enhanced GenerationContext to support BOM generation
+    - Implemented comprehensive test coverage for BOM generation
+    - Added detailed documentation for BOM generation process
+  - Technical Details:
+    - Integrated BOM generation with existing README generator
+    - Enhanced state management for dual generation support
+    - Added error handling and validation for BOM generation
+    - Improved type safety with strict interfaces
+  - Status: Core BOM functionality implemented
+  - Reference: f3517e6b, 01a73334, fd9d59c9, 604742ce
+
 ## Version 0.1.11-alpha – Jan-20-2025 02:29 PM PST
 
 ### Enhanced
