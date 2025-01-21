@@ -31,11 +31,9 @@
 ### Milestone 2.2: Document Generation Flow
 - [x] Create document generation system
 - [x] Implement generation state management
-- [ ] Add document regeneration functionality
 - [x] Implement vertical stepper tracking
 
 ### Milestone 2.3: Document Management
-- [ ] Create document list view for BOM and README
 - [ ] Implement document actions (download)
 - [ ] Add download functionality
 - [ ] Implement file saving mechanisms

@@ -244,4 +244,140 @@ Generate the README following the structure exactly as specified in the system p
       error: error instanceof Error ? error.message : 'Unknown error occurred',
     };
   }
+}
+
+/**
+ * Generates a Bill of Materials (BOM) document based on project details using OpenRouter API
+ * @param projectDetails Project information including name, description, and user stories
+ * @param readmeState Current state of README document generation
+ * @param apiKey OpenRouter API key
+ * @param existingContent Optional existing BOM content to preserve on error
+ * @returns Generated BOM content and status
+ */
+export async function generateBom(
+  projectDetails: GenerationState['projectDetails'],
+  readmeState: DocumentState,
+  apiKey: string,
+  existingContent?: string
+): Promise<DocumentState> {
+  console.log('Starting BOM generation with:', {
+    name: projectDetails.name,
+    description: projectDetails.description,
+    userStoriesCount: projectDetails.userStories.length,
+    readmeStatus: readmeState.status
+  });
+
+  // Check README generation status
+  if (readmeState.status !== 'accepted') {
+    console.error('BOM generation failed: README generation not completed');
+    throw new Error('Cannot generate BOM: README generation has not completed successfully');
+  }
+
+  if (!apiKey) {
+    console.error('BOM generation failed: API key is required');
+    throw new Error('OpenRouter API key is required');
+  }
+
+  try {
+    console.log('Using API key:', apiKey ? 'Present' : 'Missing');
+
+    // In development, use direct OpenRouter API call
+    if (process.env.NODE_ENV === 'development') {
+      const client = getOpenRouterClient({
+        apiKey,
+        siteName: "GenSpecs",
+      });
+
+      console.log('Making OpenRouter API call with Claude 3.5 Sonnet...');
+
+      const systemPrompt = `You are a technical documentation expert. Generate a Bill of Materials (BOM) document following this exact structure:
+
+#### Bill of Materials
+
+1. Components
+   1. Core Features
+   2. Supporting Features
+2. Technical Stack
+   1. Frontend
+   2. Backend
+   3. Utilities
+3. Dependencies
+   1. Core Libraries
+   2. Third-party Dependencies
+4. Functional Requirements
+   1. MVP Core Functionalities
+
+Extract information from the project details to populate each section. Focus on technical accuracy and completeness.
+Ensure all components, dependencies, and requirements are properly categorized.`;
+
+      const userPrompt = `Please generate a Bill of Materials for my project with these details:
+
+Project Name: ${projectDetails.name}
+Description: ${projectDetails.description}
+User Stories:
+${projectDetails.userStories.map(story => `- ${story}`).join('\n')}
+
+Generate the BOM following the structure exactly as specified in the system prompt.
+Analyze the project details to identify and categorize all technical components, dependencies, and requirements.`;
+
+      console.log('Sending request with prompts:', { systemPrompt, userPrompt });
+
+      const response = await client.chat.completions.create({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        model: "anthropic/claude-3.5-sonnet:beta",
+        temperature: 0.7,
+        max_tokens: 2000,
+      });
+
+      console.log('Received response:', response);
+      const content = response.choices[0]?.message?.content || '';
+      console.log('Generated BOM content:', content);
+
+      return {
+        type: 'bom' as const,
+        content,
+        status: 'accepted' as DocumentStatus,
+        lastUpdated: new Date(),
+      };
+    } 
+    // In production, use the API route
+    else {
+      const response = await fetch('/api/generate/bom', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          projectDetails,
+          readmeState,
+          apiKey,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to generate BOM');
+      }
+
+      return await response.json();
+    }
+  } catch (error) {
+    console.error('Failed to generate BOM. Full error:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      status: (error as OpenRouterError).status,
+      headers: (error as OpenRouterError).headers,
+    });
+    return {
+      type: 'bom',
+      content: existingContent || '',
+      status: 'error',
+      lastUpdated: new Date(),
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
 } 

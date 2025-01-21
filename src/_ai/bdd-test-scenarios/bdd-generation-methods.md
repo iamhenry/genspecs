@@ -31,7 +31,7 @@ Note: The "project context" used in these scenarios comes from the ContactForm c
 - Then: Should generate complete BOM matching template structure
   - Match the prompt structure in the LLM Api call
   - Should update the Stepper component to reflect the current step
-  - Should use data from generated README rather than form data
+  - Should use data from form data
 
 ## Error Handling
 
