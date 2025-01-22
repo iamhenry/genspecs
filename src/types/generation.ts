@@ -12,7 +12,7 @@
  * - GenerationState: Complete state of the generation system
  */
 
-export type DocumentType = 'readme' | 'bom';
+export type DocumentType = 'readme' | 'bom' | 'roadmap' | 'implementation';
 
 export type DocumentStatus = 'idle' | 'generating' | 'draft' | 'accepted' | 'error';
 

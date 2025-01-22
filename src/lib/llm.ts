@@ -380,4 +380,278 @@ Analyze the project details to identify and categorize all technical components,
       error: error instanceof Error ? error.message : 'Unknown error occurred',
     };
   }
+}
+
+/**
+ * Generates a Roadmap document based on project details using OpenRouter API
+ * @param projectDetails Project information including name, description, and user stories
+ * @param bomState Current state of BOM document generation
+ * @param apiKey OpenRouter API key
+ * @param existingContent Optional existing Roadmap content to preserve on error
+ * @returns Generated Roadmap content and status
+ */
+export async function generateRoadmap(
+  projectDetails: GenerationState['projectDetails'],
+  bomState: DocumentState,
+  apiKey: string,
+  existingContent?: string
+): Promise<DocumentState> {
+  console.log('Starting Roadmap generation with:', {
+    name: projectDetails.name,
+    description: projectDetails.description,
+    userStoriesCount: projectDetails.userStories.length,
+    bomStatus: bomState.status
+  });
+
+  // Check BOM generation status
+  if (bomState.status !== 'accepted') {
+    console.error('Roadmap generation failed: BOM generation not completed');
+    throw new Error('Cannot generate Roadmap: BOM generation has not completed successfully');
+  }
+
+  if (!apiKey) {
+    console.error('Roadmap generation failed: API key is required');
+    throw new Error('OpenRouter API key is required');
+  }
+
+  try {
+    console.log('Using API key:', apiKey ? 'Present' : 'Missing');
+
+    // In development, use direct OpenRouter API call
+    if (process.env.NODE_ENV === 'development') {
+      const client = getOpenRouterClient({
+        apiKey,
+        siteName: "GenSpecs",
+      });
+
+      console.log('Making OpenRouter API call with Claude 3.5 Sonnet...');
+
+      const systemPrompt = `You are a technical project planning expert. Generate a project roadmap following this exact structure:
+
+# Project Roadmap
+
+## Phase 1: Foundation
+[Initial setup and core infrastructure tasks]
+
+## Phase 2: Core Features
+[Essential features and functionality]
+
+## Phase 3: Advanced Features
+[Additional features and enhancements]
+
+## Phase 4: Polish & Launch
+[Final improvements and launch preparation]
+
+Extract information from the project details and BOM to create a comprehensive roadmap. Focus on logical progression and dependencies between phases.`;
+
+      const userPrompt = `Please generate a Project Roadmap for my project with these details:
+
+Project Name: ${projectDetails.name}
+Description: ${projectDetails.description}
+User Stories:
+${projectDetails.userStories.map(story => `- ${story}`).join('\n')}
+
+BOM Content:
+${bomState.content}
+
+Generate the Roadmap following the structure exactly as specified in the system prompt.
+Ensure proper sequencing of tasks and clear phase transitions.`;
+
+      console.log('Sending request with prompts:', { systemPrompt, userPrompt });
+
+      const response = await client.chat.completions.create({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        model: "anthropic/claude-3.5-sonnet:beta",
+        temperature: 0.7,
+        max_tokens: 2000,
+      });
+
+      console.log('Received response:', response);
+      const content = response.choices[0]?.message?.content || '';
+      console.log('Generated Roadmap content:', content);
+
+      return {
+        type: 'roadmap' as const,
+        content,
+        status: 'accepted' as DocumentStatus,
+        lastUpdated: new Date(),
+      };
+    } 
+    // In production, use the API route
+    else {
+      const response = await fetch('/api/generate/roadmap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          projectDetails,
+          bomState,
+          apiKey,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to generate Roadmap');
+      }
+
+      return await response.json();
+    }
+  } catch (error) {
+    console.error('Failed to generate Roadmap. Full error:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      status: (error as OpenRouterError).status,
+      headers: (error as OpenRouterError).headers,
+    });
+    return {
+      type: 'roadmap',
+      content: existingContent || '',
+      status: 'error',
+      lastUpdated: new Date(),
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Generates an Implementation Plan document based on project details using OpenRouter API
+ * @param projectDetails Project information including name, description, and user stories
+ * @param roadmapState Current state of Roadmap document generation
+ * @param apiKey OpenRouter API key
+ * @param existingContent Optional existing Implementation Plan content to preserve on error
+ * @returns Generated Implementation Plan content and status
+ */
+export async function generateImplementationPlan(
+  projectDetails: GenerationState['projectDetails'],
+  roadmapState: DocumentState,
+  apiKey: string,
+  existingContent?: string
+): Promise<DocumentState> {
+  console.log('Starting Implementation Plan generation with:', {
+    name: projectDetails.name,
+    description: projectDetails.description,
+    userStoriesCount: projectDetails.userStories.length,
+    roadmapStatus: roadmapState.status
+  });
+
+  // Check Roadmap generation status
+  if (roadmapState.status !== 'accepted') {
+    console.error('Implementation Plan generation failed: Roadmap generation not completed');
+    throw new Error('Cannot generate Implementation Plan: Roadmap generation has not completed successfully');
+  }
+
+  if (!apiKey) {
+    console.error('Implementation Plan generation failed: API key is required');
+    throw new Error('OpenRouter API key is required');
+  }
+
+  try {
+    console.log('Using API key:', apiKey ? 'Present' : 'Missing');
+
+    // In development, use direct OpenRouter API call
+    if (process.env.NODE_ENV === 'development') {
+      const client = getOpenRouterClient({
+        apiKey,
+        siteName: "GenSpecs",
+      });
+
+      console.log('Making OpenRouter API call with Claude 3.5 Sonnet...');
+
+      const systemPrompt = `You are a technical implementation planning expert. Generate a detailed implementation plan following this exact structure:
+
+# Implementation Plan
+
+## Phase Details
+
+### Phase 1: [Phase Name]
+1. [Task Group]
+   - Detailed task description
+   - Technical requirements
+   - Dependencies
+   - Estimated effort
+
+[Repeat for each phase from the roadmap]
+
+Extract information from the project details and roadmap to create a comprehensive implementation plan.
+Focus on technical details, dependencies, and concrete implementation steps.`;
+
+      const userPrompt = `Please generate an Implementation Plan for my project with these details:
+
+Project Name: ${projectDetails.name}
+Description: ${projectDetails.description}
+User Stories:
+${projectDetails.userStories.map(story => `- ${story}`).join('\n')}
+
+Roadmap Content:
+${roadmapState.content}
+
+Generate the Implementation Plan following the structure exactly as specified in the system prompt.
+Break down each roadmap phase into detailed, actionable implementation tasks.`;
+
+      console.log('Sending request with prompts:', { systemPrompt, userPrompt });
+
+      const response = await client.chat.completions.create({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        model: "anthropic/claude-3.5-sonnet:beta",
+        temperature: 0.7,
+        max_tokens: 2000,
+      });
+
+      console.log('Received response:', response);
+      const content = response.choices[0]?.message?.content || '';
+      console.log('Generated Implementation Plan content:', content);
+
+      return {
+        type: 'implementation' as const,
+        content,
+        status: 'accepted' as DocumentStatus,
+        lastUpdated: new Date(),
+      };
+    } 
+    // In production, use the API route
+    else {
+      const response = await fetch('/api/generate/implementation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          projectDetails,
+          roadmapState,
+          apiKey,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to generate Implementation Plan');
+      }
+
+      return await response.json();
+    }
+  } catch (error) {
+    console.error('Failed to generate Implementation Plan. Full error:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      status: (error as OpenRouterError).status,
+      headers: (error as OpenRouterError).headers,
+    });
+    return {
+      type: 'implementation',
+      content: existingContent || '',
+      status: 'error',
+      lastUpdated: new Date(),
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
 } 
