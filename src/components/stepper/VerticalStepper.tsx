@@ -20,6 +20,7 @@ import { defineStepper } from "@stepperize/react";
 import { StepIcon, StepIconState } from "@/components/stepper/StepIcon";
 import { useGeneration } from "@/context/GenerationContext";
 import { DocumentType } from "@/types/generation";
+import { DownloadButton } from "./DownloadButton";
 
 interface Step {
   id: string;
@@ -207,6 +208,9 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
           </Button>
         </div>
       </div>
+
+      {/* Download Button */}
+      <DownloadButton />
     </div>
   );
 }
