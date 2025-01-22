@@ -180,6 +180,7 @@ Integrate LLM functionality and implement document generation pipeline.
         - [ ] not displaying todo items, simply list items
       - [ ] remove back/next buttons from the stepper
       - [ ] fix api dialogue button to respect the saved state of the api key
+        - [ ] create unit tests for the api key context based off production code
 
 - [x] 3.2. Implement Download Logic
   - File: `src/lib/download.ts`
