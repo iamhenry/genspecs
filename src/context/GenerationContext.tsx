@@ -22,7 +22,12 @@ import {
   GenerationState,
   DocumentState,
 } from "@/types/generation";
-import { generateReadme, generateBom } from "@/lib/llm";
+import {
+  generateReadme,
+  generateBom,
+  generateRoadmap,
+  generateImplementationPlan,
+} from "@/lib/llm";
 import { useApiKey } from "./ApiKeyContext";
 
 interface GenerationContextType extends GenerationState {
@@ -53,6 +58,8 @@ const initialState: GenerationState = {
   documents: {
     readme: { type: "readme", content: "", status: "idle" },
     bom: { type: "bom", content: "", status: "idle" },
+    roadmap: { type: "roadmap", content: "", status: "idle" },
+    implementation: { type: "implementation", content: "", status: "idle" },
   },
   steps: [
     {
@@ -79,12 +86,52 @@ const initialState: GenerationState = {
       isActive: false,
       documentType: "bom",
     },
+    {
+      id: "roadmap",
+      title: "Roadmap",
+      description: "Generate and review Roadmap",
+      isCompleted: false,
+      isActive: false,
+      documentType: "roadmap",
+    },
+    {
+      id: "implementation",
+      title: "Implementation Plan",
+      description: "Generate and review Implementation Plan",
+      isCompleted: false,
+      isActive: false,
+      documentType: "implementation",
+    },
   ],
 };
 
 const GenerationContext = createContext<GenerationContextType | undefined>(
   undefined
 );
+
+/**
+ * Merges saved state with initial state to ensure backward compatibility
+ * when new features are added to the state structure.
+ */
+function mergeWithInitialState(
+  savedState: Partial<GenerationState>
+): GenerationState {
+  return {
+    ...initialState,
+    ...savedState,
+    documents: {
+      ...initialState.documents,
+      ...(savedState.documents || {}),
+    },
+    steps: initialState.steps.map((step) => ({
+      ...step,
+      isCompleted:
+        savedState.steps?.find((s) => s.id === step.id)?.isCompleted || false,
+      isActive:
+        savedState.steps?.find((s) => s.id === step.id)?.isActive || false,
+    })),
+  };
+}
 
 export function GenerationProvider({
   children,
@@ -162,22 +209,121 @@ export function GenerationProvider({
           });
         }
       }
+
+      // Handle Roadmap Generation
+      const roadmapDoc = state.documents.roadmap;
+      if (roadmapDoc.status === "generating") {
+        console.log("Starting Roadmap generation from context...");
+        if (!apiKey) {
+          console.error("Cannot generate Roadmap: No API key provided");
+          updateDocument("roadmap", {
+            status: "error",
+            error: "OpenRouter API key is required",
+          });
+          return;
+        }
+        try {
+          const result = await generateRoadmap(
+            state.projectDetails,
+            bomDoc,
+            apiKey
+          );
+          console.log("Roadmap Generation Result:", result);
+          updateDocument("roadmap", {
+            content: result.content,
+            status: result.status,
+            error: result.error,
+          });
+        } catch (error) {
+          console.error("Failed to generate Roadmap from context:", error);
+          updateDocument("roadmap", {
+            status: "error",
+            error: error instanceof Error ? error.message : "Unknown error",
+          });
+        }
+      }
+
+      // Handle Implementation Plan Generation
+      const implementationDoc = state.documents.implementation;
+      if (implementationDoc.status === "generating") {
+        console.log("Starting Implementation Plan generation from context...");
+        if (!apiKey) {
+          console.error(
+            "Cannot generate Implementation Plan: No API key provided"
+          );
+          updateDocument("implementation", {
+            status: "error",
+            error: "OpenRouter API key is required",
+          });
+          return;
+        }
+        try {
+          const result = await generateImplementationPlan(
+            state.projectDetails,
+            roadmapDoc,
+            apiKey
+          );
+          console.log("Implementation Plan Generation Result:", result);
+          updateDocument("implementation", {
+            content: result.content,
+            status: result.status,
+            error: result.error,
+          });
+        } catch (error) {
+          console.error(
+            "Failed to generate Implementation Plan from context:",
+            error
+          );
+          updateDocument("implementation", {
+            status: "error",
+            error: error instanceof Error ? error.message : "Unknown error",
+          });
+        }
+      }
     };
 
     generateDocuments();
-  }, [state.documents.readme.status, state.documents.bom.status, apiKey]);
+  }, [
+    state.documents.readme.status,
+    state.documents.bom.status,
+    state.documents.roadmap.status,
+    state.documents.implementation.status,
+    apiKey,
+  ]);
 
-  // Watch for README acceptance to trigger BOM generation
+  // Watch for document acceptance to trigger next generation
   useEffect(() => {
     const readmeDoc = state.documents.readme;
     const bomDoc = state.documents.bom;
+    const roadmapDoc = state.documents.roadmap;
 
     if (readmeDoc.status === "accepted" && bomDoc.status === "idle") {
       console.log("README accepted, automatically starting BOM generation...");
       updateDocument("bom", { status: "generating" });
       setCurrentStep("bom");
     }
-  }, [state.documents.readme.status]);
+
+    if (bomDoc.status === "accepted" && roadmapDoc.status === "idle") {
+      console.log("BOM accepted, automatically starting Roadmap generation...");
+      updateDocument("roadmap", { status: "generating" });
+      setCurrentStep("roadmap");
+    }
+
+    if (
+      roadmapDoc.status === "accepted" &&
+      state.documents.implementation.status === "idle"
+    ) {
+      console.log(
+        "Roadmap accepted, automatically starting Implementation Plan generation..."
+      );
+      updateDocument("implementation", { status: "generating" });
+      setCurrentStep("implementation");
+    }
+  }, [
+    state.documents.readme.status,
+    state.documents.bom.status,
+    state.documents.roadmap.status,
+  ]);
 
   useEffect(() => {
     // Load state from localStorage on mount
@@ -185,7 +331,7 @@ export function GenerationProvider({
     if (savedState) {
       try {
         const parsed = JSON.parse(savedState);
-        setState(parsed);
+        setState(mergeWithInitialState(parsed));
       } catch (error) {
         console.error("Failed to parse saved generation state:", error);
       }

@@ -1,22 +1,9 @@
 import { DocumentState, DocumentStatus, DocumentType, GenerationState } from '@/types/generation';
 import { BaseDocumentGenerator, GeneratorConfig } from './BaseDocumentGenerator';
 
-export class ImplementationPlanGenerator extends BaseDocumentGenerator {
-  protected get documentType(): DocumentType {
-    return 'implementation';
-  }
-
-  protected validateProjectDetails(): void {
-    if (!this.projectDetails.name) {
-      throw new Error('Project name is required');
-    }
-    if (!this.projectDetails.description) {
-      throw new Error('Project description is required');
-    }
-  }
-
-  protected generateSystemPrompt(): string {
-    return `# Instructions
+// Export the system prompt generator for reuse
+export const generateImplementationPlanSystemPrompt = (): string => {
+  return `# Instructions
 
 Create a detailed task plan for developing a software feature, ensuring the following structure:
 
@@ -38,6 +25,24 @@ Create a detailed task plan for developing a software feature, ensuring the foll
    For each task, specify which file(s) to modify, and note if a file needs to be created.
 5. Format the tasks as markdown checkboxes
    Use markdown formatting to ensure tasks are easy to track and check off.`;
+};
+
+export class ImplementationPlanGenerator extends BaseDocumentGenerator {
+  protected get documentType(): DocumentType {
+    return 'implementation';
+  }
+
+  protected validateProjectDetails(): void {
+    if (!this.projectDetails.name) {
+      throw new Error('Project name is required');
+    }
+    if (!this.projectDetails.description) {
+      throw new Error('Project description is required');
+    }
+  }
+
+  protected generateSystemPrompt(): string {
+    return generateImplementationPlanSystemPrompt();
   }
 
   protected generateUserPrompt(): string {

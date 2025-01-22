@@ -1,6 +1,17 @@
 import { DocumentState, DocumentStatus, DocumentType, GenerationState } from '@/types/generation';
 import { BaseDocumentGenerator, GeneratorConfig } from './BaseDocumentGenerator';
 
+// Export the system prompt generator for reuse
+export const generateRoadmapSystemPrompt = (): string => {
+  return `# Instructions
+
+- Review and analyze the Required documents
+- Then decompose and suggest a step by step plan to development
+- Break down complex tasks into subtasks (scale of 1-5, 5 being very complex)
+- Ensure the plan is outlined in Milestones
+- Phases: Static UI (UI scaffold, no functionality yet) -> Frontend -> Backend -> UI Polish`;
+};
+
 export class RoadmapGenerator extends BaseDocumentGenerator {
   protected get documentType(): DocumentType {
     return 'roadmap';
@@ -19,13 +30,7 @@ export class RoadmapGenerator extends BaseDocumentGenerator {
   }
 
   protected generateSystemPrompt(): string {
-    return `# Instructions
-
-- Review and analyze the Required documents
-- Then decompose and suggest a step by step plan to development
-- Break down complex tasks into subtasks (scale of 1-5, 5 being very complex)
-- Ensure the plan is outlined in Milestones
-- Phases: Static UI (UI scaffold, no functionality yet) -> Frontend -> Backend -> UI Polish`;
+    return generateRoadmapSystemPrompt();
   }
 
   protected generateUserPrompt(): string {

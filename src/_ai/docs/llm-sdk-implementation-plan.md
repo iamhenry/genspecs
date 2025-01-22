@@ -156,11 +156,11 @@ Integrate LLM functionality and implement document generation pipeline.
       - [x] Implement API route for production
     - [x] 3.1.2.3. Implement error recovery with fallback options
     - [ ] 3.1.2.4. Add Modular Document Generation System
-      - [ ] Create Base API Route
-        - [ ] Implement generic document generation handler
-        - [ ] Add type validation and error handling
-        - [ ] Create generator configuration system
-        - [ ] Add comprehensive test coverage
+      - [x] Create Base API Route
+        - [x] Implement generic document generation handler
+        - [x] Add type validation and error handling
+        - [x] Create generator configuration system
+        - [x] Add comprehensive test coverage
       - [x] Implement Roadmap Generator
         - [x] Create RoadmapGenerator class (RoadmapGenerator.ts)
         - [x] Add dependency validation (validates BOM dependency)
@@ -174,7 +174,12 @@ Integrate LLM functionality and implement document generation pipeline.
       - [ ] Integration
         - [ ] Update GenerationContext for new generators
         - [ ] Add to VerticalStepper
-        - [ ] Add documentation
+
+      ### Bugs:
+      - [ ] The document structure is not respecting the system prompt for the roadmap and implementation plan.
+        - [ ] not displaying todo items, simply list items
+      - [ ] remove back/next buttons from the stepper
+      - [ ] fix api dialogue button to respect the saved state of the api key
 
 - [x] 3.2. Implement Download Logic
   - File: `src/lib/download.ts`

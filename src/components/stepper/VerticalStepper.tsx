@@ -45,6 +45,16 @@ const STEPS: Step[] = [
     title: "Bill of Materials",
     content: <div>Bill of Materials content goes here</div>,
   },
+  {
+    id: "roadmap",
+    title: "Roadmap",
+    content: <div>Roadmap content goes here</div>,
+  },
+  {
+    id: "implementation",
+    title: "Implementation Plan",
+    content: <div>Implementation Plan content goes here</div>,
+  },
 ];
 
 // Create stepper from steps array

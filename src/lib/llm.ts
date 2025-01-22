@@ -8,6 +8,8 @@
 
 import OpenAI from "openai";
 import { GenerationState, DocumentState, DocumentStatus } from '@/types/generation';
+import { generateImplementationPlanSystemPrompt } from './generators/ImplementationPlanGenerator';
+import { generateRoadmapSystemPrompt } from './generators/RoadmapGenerator';
 
 // Types for OpenRouter specific configuration
 interface OpenRouterConfig {
@@ -426,23 +428,7 @@ export async function generateRoadmap(
 
       console.log('Making OpenRouter API call with Claude 3.5 Sonnet...');
 
-      const systemPrompt = `You are a technical project planning expert. Generate a project roadmap following this exact structure:
-
-# Project Roadmap
-
-## Phase 1: Foundation
-[Initial setup and core infrastructure tasks]
-
-## Phase 2: Core Features
-[Essential features and functionality]
-
-## Phase 3: Advanced Features
-[Additional features and enhancements]
-
-## Phase 4: Polish & Launch
-[Final improvements and launch preparation]
-
-Extract information from the project details and BOM to create a comprehensive roadmap. Focus on logical progression and dependencies between phases.`;
+      const systemPrompt = generateRoadmapSystemPrompt();
 
       const userPrompt = `Please generate a Project Roadmap for my project with these details:
 
@@ -563,23 +549,7 @@ export async function generateImplementationPlan(
 
       console.log('Making OpenRouter API call with Claude 3.5 Sonnet...');
 
-      const systemPrompt = `You are a technical implementation planning expert. Generate a detailed implementation plan following this exact structure:
-
-# Implementation Plan
-
-## Phase Details
-
-### Phase 1: [Phase Name]
-1. [Task Group]
-   - Detailed task description
-   - Technical requirements
-   - Dependencies
-   - Estimated effort
-
-[Repeat for each phase from the roadmap]
-
-Extract information from the project details and roadmap to create a comprehensive implementation plan.
-Focus on technical details, dependencies, and concrete implementation steps.`;
+      const systemPrompt = generateImplementationPlanSystemPrompt();
 
       const userPrompt = `Please generate an Implementation Plan for my project with these details:
 

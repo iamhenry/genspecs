@@ -92,10 +92,13 @@ describe("GenerationContext", () => {
       });
       expect(result.current.documents.readme.status).toBe("idle");
       expect(result.current.documents.bom.status).toBe("idle");
+      expect(result.current.documents.roadmap.status).toBe("idle");
+      expect(result.current.documents.implementation.status).toBe("idle");
     });
 
-    it("should load state from localStorage if available", () => {
-      const savedState = {
+    it("should load state from localStorage if available (old format)", () => {
+      // Test with old state format (only readme and bom)
+      const oldSavedState = {
         currentStep: "readme",
         projectDetails: { name: "Test Project" },
         documents: {
@@ -107,13 +110,60 @@ describe("GenerationContext", () => {
           bom: { type: "bom", content: "Saved BOM", status: "draft" },
         },
       };
-      mockLocalStorage.getItem.mockReturnValue(JSON.stringify(savedState));
+      mockLocalStorage.getItem.mockReturnValue(JSON.stringify(oldSavedState));
 
       const { result } = renderHook(() => useGeneration(), { wrapper });
 
+      // Verify old state is preserved
       expect(result.current.currentStep).toBe("readme");
       expect(result.current.projectDetails.name).toBe("Test Project");
       expect(result.current.documents.readme.status).toBe("accepted");
+      expect(result.current.documents.bom.status).toBe("draft");
+
+      // Verify new document types are initialized
+      expect(result.current.documents.roadmap.status).toBe("idle");
+      expect(result.current.documents.implementation.status).toBe("idle");
+    });
+
+    it("should load state from localStorage if available (new format)", () => {
+      // Test with new state format (all document types)
+      const newSavedState = {
+        currentStep: "roadmap",
+        projectDetails: { name: "Test Project" },
+        documents: {
+          readme: {
+            type: "readme",
+            content: "Saved README",
+            status: "accepted",
+          },
+          bom: {
+            type: "bom",
+            content: "Saved BOM",
+            status: "accepted",
+          },
+          roadmap: {
+            type: "roadmap",
+            content: "Saved Roadmap",
+            status: "draft",
+          },
+          implementation: {
+            type: "implementation",
+            content: "",
+            status: "idle",
+          },
+        },
+      };
+      mockLocalStorage.getItem.mockReturnValue(JSON.stringify(newSavedState));
+
+      const { result } = renderHook(() => useGeneration(), { wrapper });
+
+      // Verify all state is preserved
+      expect(result.current.currentStep).toBe("roadmap");
+      expect(result.current.projectDetails.name).toBe("Test Project");
+      expect(result.current.documents.readme.status).toBe("accepted");
+      expect(result.current.documents.bom.status).toBe("accepted");
+      expect(result.current.documents.roadmap.status).toBe("draft");
+      expect(result.current.documents.implementation.status).toBe("idle");
     });
   });
 
