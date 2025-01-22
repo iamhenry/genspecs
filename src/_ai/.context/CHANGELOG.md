@@ -4,6 +4,36 @@ This document tracks all modifications to GenSpecs, a Next.js web application fo
 
 ---
 
+## Version 0.1.14-alpha – Jan-21-2025 07:52 PM PST
+
+### Enhanced
+- Download Testing and Functionality
+  - Description: Enhanced document download implementation with comprehensive testing
+  - Features:
+    - Added comprehensive test coverage for download functionality
+    - Enhanced error handling and edge cases
+    - Improved download progress tracking
+  - Technical Details:
+    - Implemented unit tests for download module
+    - Enhanced download state management
+    - Improved error recovery mechanisms
+  - Status: Testing and functionality enhanced
+  - Reference: 1eae3434, 3aa8af81
+
+### Documentation
+- BDD Testing Guidelines
+  - Description: Enhanced behavior-driven development testing documentation
+  - Features:
+    - Updated BDD scenario guidelines
+    - Enhanced user stories documentation
+    - Improved testing documentation structure
+  - Technical Details:
+    - Enhanced .clinerules and .cursorrules
+    - Updated document generation workflow documentation
+    - Improved testing guidelines clarity
+  - Status: Documentation updated
+  - Reference: 35b950ad, 92e2c8d8
+
 ## Version 0.1.13-alpha – Jan-21-2025 05:03 PM PST
 
 ### Enhanced
