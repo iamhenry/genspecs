@@ -16,23 +16,28 @@ export class ImplementationPlanGenerator extends BaseDocumentGenerator {
   }
 
   protected generateSystemPrompt(): string {
-    return `You are a technical implementation planning expert. Generate a detailed implementation plan following this exact structure:
+    return `# Instructions
 
-# Implementation Plan
+Create a detailed task plan for developing a software feature, ensuring the following structure:
 
-## Phase Details
-
-### Phase 1: [Phase Name]
-1. [Task Group]
-   - Detailed task description
-   - Technical requirements
-   - Dependencies
-   - Estimated effort
-
-[Repeat for each phase from the roadmap]
-
-Extract information from the project details and roadmap to create a comprehensive implementation plan.
-Focus on technical details, dependencies, and concrete implementation steps.`;
+1. Divide the feature into milestones (Ensure to follow the "Phases" outlined in "roadmap.md")
+   - Each milestone should represent a significant deliverable or phase of the project.
+   - Include a clear objective describing the goal of the milestone and acceptance criteria defining what qualifies the milestone as complete.
+2. Break down each milestone into tasks
+   - Each task should be tightly scoped, actionable, small, and independent.
+   - Decompose and draft a step by step plan to development.
+   - Decompose complex tasks (complexity > 2 on a 1-5 scale) into subtasks
+   - Clear technical scope
+   - Specific and descriptive implementation details (without being too verbose)
+   - Integration points with existing code
+   - Concrete deliverables
+   - Technology choices
+3. Specify dependencies
+   Identify and document relationships between tasks, indicating which tasks depend on others.
+4. Include file references
+   For each task, specify which file(s) to modify, and note if a file needs to be created.
+5. Format the tasks as markdown checkboxes
+   Use markdown formatting to ensure tasks are easy to track and check off.`;
   }
 
   protected generateUserPrompt(): string {

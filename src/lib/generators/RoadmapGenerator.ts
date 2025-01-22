@@ -19,23 +19,13 @@ export class RoadmapGenerator extends BaseDocumentGenerator {
   }
 
   protected generateSystemPrompt(): string {
-    return `You are a technical project planning expert. Generate a project roadmap following this exact structure:
+    return `# Instructions
 
-# Project Roadmap
-
-## Phase 1: Foundation
-[Initial setup and core infrastructure tasks]
-
-## Phase 2: Core Features
-[Essential features and functionality]
-
-## Phase 3: Advanced Features
-[Additional features and enhancements]
-
-## Phase 4: Polish & Launch
-[Final improvements and launch preparation]
-
-Extract information from the project details and BOM to create a comprehensive roadmap. Focus on logical progression and dependencies between phases.`;
+- Review and analyze the Required documents
+- Then decompose and suggest a step by step plan to development
+- Break down complex tasks into subtasks (scale of 1-5, 5 being very complex)
+- Ensure the plan is outlined in Milestones
+- Phases: Static UI (UI scaffold, no functionality yet) -> Frontend -> Backend -> UI Polish`;
   }
 
   protected generateUserPrompt(): string {
