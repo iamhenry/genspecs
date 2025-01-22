@@ -171,9 +171,9 @@ Integrate LLM functionality and implement document generation pipeline.
         - [x] Add dependency validation (validates Roadmap dependency)
         - [x] Integrate with base handler (extends BaseDocumentGenerator)
         - [x] Add tests (implementationPlanGenerator.test.ts)
-      - [ ] Integration
-        - [ ] Update GenerationContext for new generators
-        - [ ] Add to VerticalStepper
+      - [x] Integration
+        - [x] Update GenerationContext for new generators
+        - [x] Add to VerticalStepper
 
       ### Bugs:
       - [ ] The document structure is not respecting the system prompt for the roadmap and implementation plan.
