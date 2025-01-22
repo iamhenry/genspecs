@@ -155,17 +155,18 @@ Integrate LLM functionality and implement document generation pipeline.
       - [x] Add test coverage
       - [x] Implement API route for production
     - [x] 3.1.2.3. Implement error recovery with fallback options
-    - [ ] 3.1.2.4. Add Roadmap generator with BOM dependency
-      - [ ] Create generateRoadmap function
-      - [ ] Add validation requiring accepted BOM
-      - [ ] Integrate with VerticalStepper
+    - [ ] 3.1.2.4. Add Roadmap generator with BOM and Readme dependency
       - [ ] Add test coverage
+      - [ ] Create generateRoadmap function
+      - [ ] Add validation requiring accepted BOM and Readme
+      - [ ] Integrate with VerticalStepper
       - [ ] Implement API route
       - [ ] i will provide the system prompt for the roadmap generator for use with the llm
-    - [ ] 3.1.2.5. Build Implementation Plan generator
+    - [ ] 3.1.2.5. Build Implementation Plan generator with Roadmap dependency
+      - [ ] Add test coverage
       - [ ] Create generateImplementationPlan function 
-      - [ ] Require accepted Roadmap
-      - [ ] Add sequential dependency checks
+      - [ ] Require `accepted` state for Roadmap
+      - [ ] Integrate with VerticalStepper
       - [ ] Implement production API route
       - [ ] i will provide the system prompt for the implementation plan generator for use with the llm
 
