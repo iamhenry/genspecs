@@ -161,16 +161,16 @@ Integrate LLM functionality and implement document generation pipeline.
         - [ ] Add type validation and error handling
         - [ ] Create generator configuration system
         - [ ] Add comprehensive test coverage
-      - [ ] Implement Roadmap Generator
-        - [ ] Create RoadmapGenerator class
-        - [ ] Add dependency validation
-        - [ ] Integrate with base handler
-        - [ ] Add tests
-      - [ ] Implement Implementation Plan Generator
-        - [ ] Create ImplementationPlanGenerator class
-        - [ ] Add dependency validation
-        - [ ] Integrate with base handler
-        - [ ] Add tests
+      - [x] Implement Roadmap Generator
+        - [x] Create RoadmapGenerator class (RoadmapGenerator.ts)
+        - [x] Add dependency validation (validates BOM dependency)
+        - [x] Integrate with base handler (extends BaseDocumentGenerator)
+        - [x] Add tests (roadmapGenerator.test.ts)
+      - [x] Implement Implementation Plan Generator
+        - [x] Create ImplementationPlanGenerator class (ImplementationPlanGenerator.ts)
+        - [x] Add dependency validation (validates Roadmap dependency)
+        - [x] Integrate with base handler (extends BaseDocumentGenerator)
+        - [x] Add tests (implementationPlanGenerator.test.ts)
       - [ ] Integration
         - [ ] Update GenerationContext for new generators
         - [ ] Add to VerticalStepper
