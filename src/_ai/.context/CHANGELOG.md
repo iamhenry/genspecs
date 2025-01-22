@@ -4,6 +4,36 @@ This document tracks all modifications to GenSpecs, a Next.js web application fo
 
 ---
 
+## Version 0.1.13-alpha – Jan-21-2025 05:03 PM PST
+
+### Enhanced
+- Download Functionality Implementation
+  - Description: Added download button to VerticalStepper component
+  - Features:
+    - Implemented download button UI integration
+    - Enhanced stepper component with download functionality
+    - Added download state management
+  - Technical Details:
+    - Integrated with document generation workflow
+    - Added download progress tracking
+    - Enhanced error handling for downloads
+  - Status: Download functionality implemented
+  - Reference: dceef0d5
+
+### Documentation
+- Testing Guidelines Enhancement
+  - Description: Improved documentation and testing guidelines
+  - Features:
+    - Enhanced BDD scenario documentation
+    - Updated testing guidelines for README and BOM generation
+    - Refined documentation structure
+  - Technical Details:
+    - Added detailed BDD scenarios
+    - Enhanced test coverage requirements
+    - Improved documentation clarity
+  - Status: Documentation updated
+  - Reference: 2b2f93d1, 92e2c8d8
+
 ## Version 0.1.12-alpha – Jan-21-2025 01:19 PM PST
 
 ### Enhanced

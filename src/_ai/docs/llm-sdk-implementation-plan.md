@@ -107,7 +107,7 @@ Implement all frontend logic, state management, and user interactions.
 
 ### Relevant Files:
 - `src/lib/llm.ts` - LLM integration utilities
-- `src/lib/download.ts` - Download utilities (to be created)
+- `src/lib/download.ts` - Download utilities
 
 ### Objective:
 Integrate LLM functionality and implement document generation pipeline.
@@ -156,12 +156,12 @@ Integrate LLM functionality and implement document generation pipeline.
       - [x] Implement API route for production
     - [x] 3.1.2.3. Implement error recovery with fallback options
 
-- [ ] 3.2. Implement Download Logic
-  - File: `src/lib/download.ts` (create)
-  - [ ] 3.2.1. Create ZIP Utilities
-    - [ ] 3.2.1.1. Set up JSZip with proper file structure
-    - [ ] 3.2.1.2. Add markdown file packaging with metadata
-    - [ ] 3.2.1.3. Implement browser download with progress
+- [x] 3.2. Implement Download Logic
+  - File: `src/lib/download.ts`
+  - [x] 3.2.1. Create ZIP Utilities
+    - [x] 3.2.1.1. Set up JSZip with proper file structure
+    - [x] 3.2.1.2. Add markdown file packaging with metadata
+    - [x] 3.2.1.3. Implement browser download with progress
 
 ## Phase 4: UI Polish
 
@@ -185,8 +185,8 @@ Add final polish, animations, and improve user experience.
   - [ ] 4.2.1. Add fadein/fadeout transitions for form/stepper views
   - [ ] 4.2.2. Create smooth step transitions with opacity
 
-- [ ] 4.3. Improve Error States
-  - [ ] 4.3.1. Create toast notifications with status icons
-  - [ ] 4.3.2. Implement error recovery UI with retry buttons
+- [x] 4.3. Improve Error States
+  - [x] 4.3.1. Create toast notifications with status icons
+  - [x] 4.3.2. Implement error recovery UI with retry buttons
 
 Note: Two-column layout with document preview functionality is preserved in the codebase for future enhancement.
