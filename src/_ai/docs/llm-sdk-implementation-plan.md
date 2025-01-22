@@ -161,13 +161,13 @@ Integrate LLM functionality and implement document generation pipeline.
       - [ ] Integrate with VerticalStepper
       - [ ] Add test coverage
       - [ ] Implement API route
-      - [ ] i will provide the system prompt for the roadmap generator
+      - [ ] i will provide the system prompt for the roadmap generator for use with the llm
     - [ ] 3.1.2.5. Build Implementation Plan generator
       - [ ] Create generateImplementationPlan function 
       - [ ] Require accepted Roadmap
       - [ ] Add sequential dependency checks
       - [ ] Implement production API route
-      - [ ] i will provide the system prompt for the implementation plan generator
+      - [ ] i will provide the system prompt for the implementation plan generator for use with the llm
 
 - [x] 3.2. Implement Download Logic
   - File: `src/lib/download.ts`
