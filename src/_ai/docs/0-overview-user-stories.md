@@ -6,7 +6,17 @@ The workflow should be almost like an onboarding experience where it basically g
 
 # User stories (MVP)
 - Project Document Generation
-  as a user i want to be able to give a project name, description, tech stack, user stories and it will generate the following documents: readme, bill materials.
+  as a user i want to be able to give a project name, description/tech stack (one single input field), user stories and it will generate the following documents in sequence:
+  - Readme (Project overview)
+  - BOM (Technical components) 
+  - Roadmap (Development timeline)
+  - Implementation Plan (Task breakdown)
+    - as a user the system can only generate the Roadmap after BOM state is equal to `accepted`
+    - as a user the system can only generate the Implementation Plan after Roadmap state is equal to `accepted`
+    - as a user the roadmap.md depends on `readme.md` and `bom.md`
+    - as a user the implementation-plan.md depends on `roadmap.md`
+    - as a user i want to see the `vertical-stepper` component indicate the state of the current document with `stepicon`
+    - as a user the final step should be the generation of the `implementation-plan.md`, then the `download-all-documents` button should be enabled
 - Guided Workflow
   as a user i want to be automatically guided through the process and only move on to generating the next document once the document has been generated
 - Download All Documents
@@ -44,4 +54,3 @@ The workflow should be almost like an onboarding experience where it basically g
 # Future Dependencies
 - vercel AI SDK
 - novel.sh for the markdown text editor
-
