@@ -85,7 +85,7 @@ Implement all frontend logic, state management, and user interactions.
     - [x] 2.1.1.3. Add validateApiKey method with OpenRouter API check
 
 - [x] 2.2. Set up Generation Store
-  - File: `src/store/generationStore.ts` (create)
+  - File: `src/store/generation.ts`
   - [x] 2.2.1. Define Store Structure
     - [x] 2.2.1.1. Create StepState and GenerationState interfaces
     - [x] 2.2.1.2. Initialize store with currentStep and documentStates
