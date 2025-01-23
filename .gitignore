@@ -14,7 +14,3 @@ node_modules/
 # Build output
 dist/
 .vercel/
-
-# Test coverage
-coverage/
-.vercel

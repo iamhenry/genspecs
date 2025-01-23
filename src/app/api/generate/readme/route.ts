@@ -7,6 +7,7 @@
 
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { GenerationState } from '@/types/generation';
 
 export async function POST(request: Request) {
   try {
@@ -53,7 +54,7 @@ Use the provided project details to populate the sections. Extract key informati
 Project Name: ${projectDetails.name}
 Description: ${projectDetails.description}
 User Stories:
-${projectDetails.userStories.map(story => `- ${story}`).join('\n')}
+${projectDetails.userStories.map((story: string) => `- ${story}`).join('\n')}
 
 Generate the README following the structure exactly as specified in the system prompt.`;
 

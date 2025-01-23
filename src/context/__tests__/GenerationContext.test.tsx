@@ -5,7 +5,6 @@
  * and step management.
  */
 
-import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { GenerationProvider, useGeneration } from "../GenerationContext";
