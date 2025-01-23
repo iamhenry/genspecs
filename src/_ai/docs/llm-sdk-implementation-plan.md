@@ -186,8 +186,8 @@ Integrate LLM functionality and implement document generation pipeline.
       - [x] Card container is not huggin contents and has a fixed height
       - [x] type styles are off from mock
       - [x] disable variant button if the contact form is filled out but there is no api key
-      - [ ] add a "Reset" link below the stepper download button for when the user has completed the generation
-        - [ ] it resets all the data except the api key
+      - [x] add a "Reset" link below the stepper download button for when the user has completed the generation
+        - [x] it resets all the data except the api key
       - [ ] hide logs from the console for production
 
 - [x] 3.2. Implement Download Logic
