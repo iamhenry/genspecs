@@ -185,6 +185,8 @@ Integrate LLM functionality and implement document generation pipeline.
         - [x] make all buttons consistent  (rounded corners, colors)
       - [x] Card container is not huggin contents and has a fixed height
       - [x] type styles are off from mock
+      - [ ] disable button if the contact form is filled out but there is no api key
+      - [ ] hide logs from the console for production
 
 - [x] 3.2. Implement Download Logic
   - File: `src/lib/download.ts`
@@ -211,9 +213,9 @@ Add final polish, animations, and improve user experience.
   - [ ] 4.1.1. Create skeleton loader components with premade shadcn components
   - [x] 4.1.2. Implement loading spinners with theme colors use @eights-bit-loading-spinner
 
-- [ ] 4.2. Enhance Transitions
-  - [ ] 4.2.1. Add fadein/fadeout transitions for form/stepper views
-  - [ ] 4.2.2. Create smooth step transitions with opacity
+- [x] 4.2. Enhance Transitions
+  - [x] 4.2.1. Add fadein/fadeout transitions for form/stepper views
+  - [x] 4.2.2. Create smooth step transitions with opacity
 
 - [x] 4.3. Improve Error States
   - [x] 4.3.1. Create toast notifications with status icons

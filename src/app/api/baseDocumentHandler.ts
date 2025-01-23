@@ -3,18 +3,19 @@ import { DocumentType } from '@/types/generation';
 import { GeneratorDependency } from '@/lib/generators/BaseDocumentGenerator';
 import OpenAI from 'openai';
 
-interface DocumentGenerationConfig {
+export interface DocumentGenerationConfig {
   type: DocumentType;
   systemPrompt: string;
   userPrompt: string;
+  dependencies?: GeneratorDependency[];
+  apiKey: string;
 }
 
 export async function handleDocumentGeneration(
-  request: Request,
   config: DocumentGenerationConfig
 ): Promise<NextResponse> {
   try {
-    const { dependencies = [], apiKey } = await request.json();
+    const { dependencies = [], apiKey } = config;
 
     // Validate API key
     if (!apiKey) {
@@ -26,7 +27,7 @@ export async function handleDocumentGeneration(
 
     // Validate dependencies
     if (dependencies.length > 0) {
-      for (const dep of dependencies as GeneratorDependency[]) {
+      for (const dep of dependencies) {
         if (dep.state.status !== dep.requiredStatus) {
           return NextResponse.json(
             { error: dep.errorMessage },
@@ -41,7 +42,7 @@ export async function handleDocumentGeneration(
       baseURL: "https://openrouter.ai/api/v1",
       apiKey,
       defaultHeaders: {
-        "HTTP-Referer": request.headers.get('referer') || "",
+        "HTTP-Referer": "https://genspecs.vercel.app",
         "X-Title": "GenSpecs",
       },
     });

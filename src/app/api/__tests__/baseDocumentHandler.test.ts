@@ -6,8 +6,8 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextResponse } from 'next/server';
-import { handleDocumentGeneration } from '@/app/api/baseDocumentHandler';
-import { DocumentType } from '@/types/generation';
+import { handleDocumentGeneration, DocumentGenerationConfig } from '@/app/api/baseDocumentHandler';
+import { DocumentState, DocumentStatus, DocumentType } from '@/types/generation';
 import OpenAI from 'openai';
 
 // Mock OpenAI
@@ -32,19 +32,12 @@ describe('Base Document Generation Handler', () => {
   });
 
   it('should validate API key', async () => {
-    const request = new Request('http://localhost:3000/api/generate/test', {
-      method: 'POST',
-      body: JSON.stringify({
-        projectDetails: mockProjectDetails,
-        dependencies: []
-      })
-    });
-
-    const response = await handleDocumentGeneration(request, {
-      type: 'readme' as DocumentType,
+    const response = await handleDocumentGeneration({
+      type: 'readme',
       systemPrompt: mockSystemPrompt,
-      userPrompt: mockUserPrompt
-    });
+      userPrompt: mockUserPrompt,
+      dependencies: []
+    } as DocumentGenerationConfig); // Cast to config type to test missing apiKey
 
     expect(response).toBeInstanceOf(NextResponse);
     expect(response.status).toBe(400);
@@ -54,24 +47,21 @@ describe('Base Document Generation Handler', () => {
 
   it('should validate dependencies', async () => {
     const mockDependencies = [{
-      state: { type: 'bom', status: 'error', content: '' },
-      requiredStatus: 'accepted',
+      state: {
+        type: 'bom' as DocumentType,
+        status: 'error' as DocumentStatus,
+        content: ''
+      } as DocumentState,
+      requiredStatus: 'accepted' as DocumentStatus,
       errorMessage: 'BOM generation not completed'
     }];
 
-    const request = new Request('http://localhost:3000/api/generate/test', {
-      method: 'POST',
-      body: JSON.stringify({
-        projectDetails: mockProjectDetails,
-        dependencies: mockDependencies,
-        apiKey: mockApiKey
-      })
-    });
-
-    const response = await handleDocumentGeneration(request, {
-      type: 'roadmap' as DocumentType,
+    const response = await handleDocumentGeneration({
+      type: 'roadmap',
       systemPrompt: mockSystemPrompt,
-      userPrompt: mockUserPrompt
+      userPrompt: mockUserPrompt,
+      dependencies: mockDependencies,
+      apiKey: mockApiKey
     });
 
     expect(response).toBeInstanceOf(NextResponse);
@@ -118,19 +108,12 @@ describe('Base Document Generation Handler', () => {
       } as unknown as OpenAI;
     });
 
-    const request = new Request('http://localhost:3000/api/generate/test', {
-      method: 'POST',
-      body: JSON.stringify({
-        projectDetails: mockProjectDetails,
-        dependencies: [],
-        apiKey: mockApiKey
-      })
-    });
-
-    const response = await handleDocumentGeneration(request, {
-      type: 'readme' as DocumentType,
+    const response = await handleDocumentGeneration({
+      type: 'readme',
       systemPrompt: mockSystemPrompt,
-      userPrompt: mockUserPrompt
+      userPrompt: mockUserPrompt,
+      dependencies: [],
+      apiKey: mockApiKey
     });
 
     expect(response).toBeInstanceOf(NextResponse);
@@ -156,19 +139,12 @@ describe('Base Document Generation Handler', () => {
       } as unknown as OpenAI;
     });
 
-    const request = new Request('http://localhost:3000/api/generate/test', {
-      method: 'POST',
-      body: JSON.stringify({
-        projectDetails: mockProjectDetails,
-        dependencies: [],
-        apiKey: mockApiKey
-      })
-    });
-
-    const response = await handleDocumentGeneration(request, {
-      type: 'readme' as DocumentType,
+    const response = await handleDocumentGeneration({
+      type: 'readme',
       systemPrompt: mockSystemPrompt,
-      userPrompt: mockUserPrompt
+      userPrompt: mockUserPrompt,
+      dependencies: [],
+      apiKey: mockApiKey
     });
 
     expect(response).toBeInstanceOf(NextResponse);
