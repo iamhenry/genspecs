@@ -176,11 +176,11 @@ Integrate LLM functionality and implement document generation pipeline.
         - [x] Add to VerticalStepper
 
       ### Bugs:
-      - [ ] The document structure is not respecting the system prompt for the roadmap and implementation plan.
-        - [ ] not displaying todo items, simply list items
+      - [x] The document structure is not respecting the system prompt for the roadmap and implementation plan.
+        - [x] not displaying todo items, simply list items
+      - [x] fix api dialogue button to respect the saved state of the api key
+        - [x] create unit tests for the api key context based off production code
       - [ ] remove back/next buttons from the stepper
-      - [ ] fix api dialogue button to respect the saved state of the api key
-        - [ ] create unit tests for the api key context based off production code
       - [ ] Card container is not huggin contents and has a fixed height
       - [ ] type styles are off from mock
       - [ ] make all buttons consistent  (rounded corners, colors)

@@ -43,8 +43,7 @@ const formSchema = z.object({
 });
 
 export function ApiKeyModal() {
-  const { setApiKey, apiKey, isValid, clearApiKey } = useApiKey();
-  const [isLoading, setIsLoading] = useState(false);
+  const { setApiKey, apiKey, isValid, isLoading, clearApiKey } = useApiKey();
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
 
@@ -63,10 +62,7 @@ export function ApiKeyModal() {
   }, [apiKey, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (isLoading) return;
-
     try {
-      setIsLoading(true);
       const result = await setApiKey(values.apiKey);
 
       if (!result.isValid) {
@@ -95,8 +91,6 @@ export function ApiKeyModal() {
         type: "manual",
         message: "An unexpected error occurred. Please try again.",
       });
-    } finally {
-      setIsLoading(false);
     }
   }
 
@@ -107,8 +101,15 @@ export function ApiKeyModal() {
           variant={isValid ? "outline" : "default"}
           className="rounded-2xl"
           onClick={() => isValid && clearApiKey()}
+          disabled={isLoading}
         >
-          {isValid ? "Clear API Key" : "Set Openrouter API Key"}
+          {isLoading ? (
+            <EightBitSpinner />
+          ) : isValid ? (
+            "Clear API Key"
+          ) : (
+            "Set Openrouter API Key"
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

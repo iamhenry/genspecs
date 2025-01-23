@@ -18,14 +18,15 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { encrypt, decrypt } from "@/lib/encryption";
 
-interface ValidationResult {
+export interface ValidationResult {
   isValid: boolean;
   error?: string;
 }
 
-interface ApiKeyContextType {
+export interface ApiKeyContextType {
   apiKey: string | null;
   isValid: boolean;
+  isLoading: boolean;
   setApiKey: (key: string) => Promise<ValidationResult>;
   validateApiKey: () => Promise<ValidationResult>;
   clearApiKey: () => void;
@@ -38,21 +39,29 @@ const STORAGE_KEY = "openrouter_api_key";
 export function ApiKeyProvider({ children }: { children: React.ReactNode }) {
   const [apiKey, setApiKeyState] = useState<string | null>(null);
   const [isValid, setIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Load API key from localStorage on mount
     const loadApiKey = async () => {
+      setIsLoading(true);
       const encryptedKey = localStorage.getItem(STORAGE_KEY);
       if (encryptedKey) {
         try {
           const decryptedKey = await decrypt(encryptedKey);
-          setApiKeyState(decryptedKey);
-          validateApiKey();
+          const validationResult = await validateApiKey(decryptedKey);
+          if (validationResult.isValid) {
+            setApiKeyState(decryptedKey);
+            setIsValid(true);
+          } else {
+            clearApiKey();
+          }
         } catch (error) {
           console.error("Failed to decrypt API key:", error);
           clearApiKey();
         }
       }
+      setIsLoading(false);
     };
     loadApiKey();
   }, []);
@@ -129,8 +138,10 @@ export function ApiKeyProvider({ children }: { children: React.ReactNode }) {
       // If response is ok, parse the response
       const data = await response.json();
       console.log("✅ API key validated successfully!", data);
-
       setIsValid(true);
+      if (keyToValidate) {
+        setApiKeyState(keyToValidate);
+      }
       return { isValid: true };
     } catch (error) {
       console.error("❌ Validation error:", error);
@@ -146,11 +157,14 @@ export function ApiKeyProvider({ children }: { children: React.ReactNode }) {
   const setApiKey = async (key: string): Promise<ValidationResult> => {
     try {
       console.log("🔐 Attempting to set new API key...");
+      setIsLoading(true);
       // Validate first
       const validationResult = await validateApiKey(key);
 
       if (!validationResult.isValid) {
         console.log("❌ Validation failed, key not saved");
+        setIsLoading(false);
+        setIsValid(false);
         return validationResult;
       }
 
@@ -158,11 +172,14 @@ export function ApiKeyProvider({ children }: { children: React.ReactNode }) {
       const encryptedKey = await encrypt(key);
       localStorage.setItem(STORAGE_KEY, encryptedKey);
       setApiKeyState(key);
+      setIsValid(true);
       console.log("✅ API key encrypted and saved successfully");
-
+      setIsLoading(false);
       return { isValid: true };
     } catch (error) {
       console.error("❌ Error saving API key:", error);
+      setIsLoading(false);
+      setIsValid(false);
       return {
         isValid: false,
         error: "Failed to save API key. Please try again.",
@@ -179,7 +196,14 @@ export function ApiKeyProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ApiKeyContext.Provider
-      value={{ apiKey, isValid, setApiKey, validateApiKey, clearApiKey }}
+      value={{
+        apiKey,
+        isValid,
+        isLoading,
+        setApiKey,
+        validateApiKey,
+        clearApiKey,
+      }}
     >
       {children}
     </ApiKeyContext.Provider>
