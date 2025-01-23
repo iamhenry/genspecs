@@ -88,71 +88,80 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="projectName"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormControl>
-                <Input
-                  placeholder="Enter your project name"
-                  {...field}
-                  className="border-0 bg-white rounded-2xl px-4 py-3 focus-visible:ring-0 focus-visible:ring-offset-0 font-sans"
-                  disabled={isSubmitting}
-                />
-              </FormControl>
-              <FormMessage className="text-sm text-red-500" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel className="text-neutral-800 text-base font-bold font-chivo-mono">
-                Description & Tech Stack
-              </FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Project overview and tech stack"
-                  {...field}
-                  className="min-h-[120px] border-0 bg-white rounded-2xl px-4 py-3 focus-visible:ring-0 focus-visible:ring-offset-0 text-neutral-400 text-sm font-normal leading-7 font-sans"
-                  disabled={isSubmitting}
-                />
-              </FormControl>
-              <FormMessage className="text-sm text-red-500" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="userStories"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel className="text-neutral-800 text-base font-bold font-chivo-mono">
-                User Stories
-              </FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Eg. As a user, I want to [feature] so that [benefit]"
-                  {...field}
-                  className="min-h-[120px] border-0 bg-white rounded-2xl px-4 py-3 focus-visible:ring-0 focus-visible:ring-offset-0 text-neutral-400 text-sm font-normal leading-7 font-sans"
-                  disabled={isSubmitting}
-                />
-              </FormControl>
-              <FormMessage className="text-sm text-red-500" />
-            </FormItem>
-          )}
-        />
-        <Button
-          type="submit"
-          className="w-full bg-zinc-100 text-zinc-600 hover:bg-zinc-200 rounded-2xl p-3 h-auto font-normal text-xs font-chivo-mono"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? <EightBitSpinner /> : "Generate"}
-        </Button>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="h-full flex flex-col justify-between"
+      >
+        <div className="self-stretch flex-col justify-start items-start gap-8 flex">
+          <FormField
+            control={form.control}
+            name="projectName"
+            render={({ field }) => (
+              <FormItem className="self-stretch flex-col justify-start items-start gap-3">
+                <FormControl>
+                  <Input
+                    placeholder="Enter Project Name..."
+                    {...field}
+                    className="self-stretch border-0 bg-white p-0 focus-visible:ring-0 focus-visible:ring-offset-0 font-chivo-mono !text-xl font-bold"
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage className="text-sm text-red-500" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="self-stretch flex-col justify-start items-start gap-3">
+                <FormLabel className="self-stretch text-base font-bold font-chivo-mono">
+                  Description & Tech Stack
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Project overview and tech stack"
+                    {...field}
+                    className="self-stretch min-h-[120px] border-0 bg-white p-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base font-normal leading-7 font-sans"
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage className="text-sm text-red-500" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="userStories"
+            render={({ field }) => (
+              <FormItem className="self-stretch flex-col justify-start items-start gap-3">
+                <FormLabel className="self-stretch text-base font-bold font-chivo-mono">
+                  User Stories
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Eg. As a user, I want to [feature] so that [benefit]"
+                    {...field}
+                    className="self-stretch min-h-[300px] border-0 bg-white p-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base font-normal leading-7 font-sans"
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage className="text-sm text-red-500" />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="self-stretch">
+          <Button
+            type="submit"
+            className="w-full bg-black hover:bg-black/90 text-white disabled:bg-zinc-200 disabled:text-zinc-500 rounded-full p-3 h-auto font-normal text-xs font-chivo-mono"
+            disabled={
+              isSubmitting || !form.formState.isDirty || !form.formState.isValid
+            }
+          >
+            {isSubmitting ? <EightBitSpinner /> : "Generate"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

@@ -35,6 +35,7 @@ import { Input } from "@/components/ui/input";
 import { useApiKey } from "@/context/ApiKeyContext";
 import { EightBitSpinner } from "./ui/EightBitSpinner";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   apiKey: z.string().min(1, {
@@ -99,7 +100,12 @@ export function ApiKeyModal() {
       <DialogTrigger asChild>
         <Button
           variant={isValid ? "outline" : "default"}
-          className="rounded-2xl"
+          className={cn(
+            "rounded-full",
+            isValid
+              ? "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+              : "bg-black hover:bg-black/90 text-white"
+          )}
           onClick={() => isValid && clearApiKey()}
           disabled={isLoading}
         >
@@ -133,7 +139,7 @@ export function ApiKeyModal() {
                       placeholder="Enter your API key"
                       type="password"
                       {...field}
-                      className="border-0 bg-white rounded-2xl px-4 py-3 focus-visible:ring-0 focus-visible:ring-offset-0 font-sans"
+                      className="!border-1 border-zinc-100 bg-white rounded-full px-4 py-3 focus-visible:ring-0 focus-visible:ring-offset-0 font-sans"
                       disabled={isLoading}
                     />
                   </FormControl>
@@ -154,8 +160,8 @@ export function ApiKeyModal() {
             />
             <Button
               type="submit"
-              className="w-full bg-zinc-100 text-zinc-600 hover:bg-zinc-200 rounded-2xl p-3 h-auto font-normal text-xs font-chivo-mono"
-              disabled={isLoading}
+              className="w-full bg-black hover:bg-black/90 text-white disabled:bg-zinc-200 disabled:text-zinc-500 rounded-full p-3 h-auto font-normal text-xs font-chivo-mono"
+              disabled={isLoading || !form.formState.isDirty}
             >
               {isLoading ? <EightBitSpinner /> : "Save API Key"}
             </Button>

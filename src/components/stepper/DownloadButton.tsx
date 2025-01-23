@@ -58,15 +58,13 @@ export function DownloadButton() {
   };
 
   return (
-    <div className="p-6 pt-2">
-      <Button
-        onClick={handleDownload}
-        disabled={!areAllDocumentsReady || isGenerating || isDownloading}
-        className="w-full"
-      >
-        <Download className="mr-2 h-4 w-4" />
-        {getButtonLabel()}
-      </Button>
-    </div>
+    <Button
+      onClick={handleDownload}
+      disabled={!areAllDocumentsReady || isGenerating || isDownloading}
+      className="w-full bg-black hover:bg-black/90 text-white disabled:bg-zinc-200 disabled:text-zinc-500 font-normal text-xs font-chivo-mono h-auto p-3"
+    >
+      <Download className="mr-2 h-4 w-4" />
+      {getButtonLabel()}
+    </Button>
   );
 }

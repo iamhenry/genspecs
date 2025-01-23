@@ -180,11 +180,11 @@ Integrate LLM functionality and implement document generation pipeline.
         - [x] not displaying todo items, simply list items
       - [x] fix api dialogue button to respect the saved state of the api key
         - [x] create unit tests for the api key context based off production code
-      - [ ] remove back/next buttons from the stepper
-      - [ ] Card container is not huggin contents and has a fixed height
-      - [ ] type styles are off from mock
-      - [ ] make all buttons consistent  (rounded corners, colors)
-      - [ ] dialog input field to have a border
+      - [x] remove back/next buttons from the stepper
+        - [x] dialog input field to have a border
+        - [x] make all buttons consistent  (rounded corners, colors)
+      - [x] Card container is not huggin contents and has a fixed height
+      - [x] type styles are off from mock
 
 - [x] 3.2. Implement Download Logic
   - File: `src/lib/download.ts`
@@ -209,7 +209,7 @@ Add final polish, animations, and improve user experience.
 
 - [ ] 4.1. Add Loading States
   - [ ] 4.1.1. Create skeleton loader components with premade shadcn components
-  - [ ] 4.1.2. Implement loading spinners with theme colors use @eights-bit-loading-spinner
+  - [x] 4.1.2. Implement loading spinners with theme colors use @eights-bit-loading-spinner
 
 - [ ] 4.2. Enhance Transitions
   - [ ] 4.2.1. Add fadein/fadeout transitions for form/stepper views

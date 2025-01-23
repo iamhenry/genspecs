@@ -106,35 +106,6 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
     stepper.goTo(stepId);
   };
 
-  // Handle next/prev navigation
-  const handleNext = () => {
-    if (!stepper.isLast) {
-      const nextStepId = stepper.all[currentIndex + 1].id;
-      handleStepChange(nextStepId);
-    } else {
-      handleReset();
-    }
-  };
-
-  const handlePrev = () => {
-    if (!stepper.isFirst) {
-      const prevStepId = stepper.all[currentIndex - 1].id;
-      handleStepChange(prevStepId);
-    }
-  };
-
-  // Handle reset
-  const handleReset = () => {
-    // Reset all document states to idle
-    STEPS.forEach((step) => {
-      updateDocument(step.id as DocumentType, { status: "idle" });
-    });
-
-    // Go back to first step
-    stepper.reset();
-    handleStepChange(STEPS[0].id);
-  };
-
   // Call onChange whenever the current step changes
   React.useEffect(() => {
     const currentStep = STEPS[currentIndex];
@@ -152,18 +123,18 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="p-6 pb-2">
+      <div className="pb-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold font-chivo-mono">Document</h1>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav aria-label="Document Steps" className="flex-1 overflow-y-auto px-6">
-        <ol className="flex flex-col gap-2" aria-orientation="vertical">
+      <nav aria-label="Document Steps" className="flex-1 overflow-y-auto">
+        <ol className="flex flex-col" aria-orientation="vertical">
           {stepper.all.map((step, index, array) => (
             <React.Fragment key={step.id}>
-              <li className="flex items-center gap-4">
+              <li className="flex items-center gap-2">
                 <Button
                   type="button"
                   role="tab"
@@ -179,17 +150,26 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
                 >
                   <StepIcon state={getStepState(step.id)} className="w-4 h-4" />
                 </Button>
-                <span className="text-sm font-bold font-chivo-mono">
+                <span
+                  className={`text-sm font-bold font-chivo-mono ${
+                    getStepState(step.id) === "idle" &&
+                    stepper.current.id !== step.id
+                      ? "text-muted-foreground"
+                      : "text-foreground"
+                  }`}
+                >
                   {step.title}
                 </span>
               </li>
               {index < array.length - 1 && (
-                <div className="flex gap-4">
+                <div className="flex">
                   <div className="flex justify-center pl-5">
                     <Separator
                       orientation="vertical"
-                      className={`w-[1px] h-6 ${
-                        index < currentIndex ? "bg-primary" : "bg-muted"
+                      className={`w-[1px] h-4 ${
+                        getStepState(step.id) === "done"
+                          ? "bg-[#22c55e]"
+                          : "bg-muted"
                       }`}
                     />
                   </div>
@@ -200,27 +180,10 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
         </ol>
       </nav>
 
-      {/* Bottom Buttons */}
-      <div className="p-6 pt-2">
-        <div className="flex justify-between gap-4">
-          <Button
-            variant="secondary"
-            onClick={handlePrev}
-            disabled={stepper.isFirst}
-          >
-            Back
-          </Button>
-          <Button
-            onClick={handleNext}
-            variant={stepper.isLast ? "secondary" : "default"}
-          >
-            {stepper.isLast ? "Reset" : "Next"}
-          </Button>
-        </div>
-      </div>
-
       {/* Download Button */}
-      <DownloadButton />
+      <div className="pt-10">
+        <DownloadButton />
+      </div>
     </div>
   );
 }
