@@ -21,6 +21,7 @@ import { StepIcon, StepIconState } from "@/components/stepper/StepIcon";
 import { useGeneration } from "@/context/GenerationContext";
 import { DocumentType } from "@/types/generation";
 import { DownloadButton } from "./DownloadButton";
+import { motion } from "framer-motion";
 
 interface Step {
   id: string;
@@ -61,6 +62,39 @@ const STEPS: Step[] = [
 const { useStepper, steps, utils } = defineStepper(
   ...STEPS.map(({ id, title }) => ({ id, title }))
 );
+
+const buttonVariants = {
+  idle: { opacity: 0.5 },
+  active: { opacity: 1 },
+  loading: { opacity: 0.7 },
+  done: { opacity: 1 },
+};
+
+const stepVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.08,
+      duration: 0.25,
+      ease: [0.645, 0.045, 0.355, 1.0],
+    },
+  }),
+};
+
+const separatorVariants = {
+  hidden: { scaleY: 0, opacity: 0 },
+  visible: (i: number) => ({
+    scaleY: 1,
+    opacity: 1,
+    transition: {
+      delay: i * 0.08 + 0.04,
+      duration: 0.25,
+      ease: [0.645, 0.045, 0.355, 1.0],
+    },
+  }),
+};
 
 export function VerticalStepper({ onChange }: VerticalStepperProps) {
   const stepper = useStepper();
@@ -122,35 +156,61 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
-      <div className="pb-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.3,
+          ease: "easeOut",
+        }}
+        className="pb-4"
+      >
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold font-chivo-mono">Document</h1>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Navigation */}
       <nav aria-label="Document Steps" className="flex-1 overflow-y-auto">
         <ol className="flex flex-col" aria-orientation="vertical">
           {stepper.all.map((step, index, array) => (
             <React.Fragment key={step.id}>
-              <li className="flex items-center gap-2">
-                <Button
-                  type="button"
-                  role="tab"
-                  variant="ghost"
-                  aria-current={
-                    stepper.current.id === step.id ? "step" : undefined
-                  }
-                  aria-posinset={index + 1}
-                  aria-setsize={steps.length}
-                  aria-selected={stepper.current.id === step.id}
-                  className="flex size-10 items-center justify-center rounded-full p-0 hover:bg-transparent"
-                  onClick={() => handleStepChange(step.id)}
+              <motion.li
+                className="flex items-center gap-2"
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                variants={stepVariants}
+              >
+                <motion.div
+                  initial="idle"
+                  animate={getStepState(step.id)}
+                  variants={buttonVariants}
+                  transition={{ duration: 0.2 }}
                 >
-                  <StepIcon state={getStepState(step.id)} className="w-4 h-4" />
-                </Button>
-                <span
+                  <Button
+                    type="button"
+                    role="tab"
+                    variant="ghost"
+                    aria-current={
+                      stepper.current.id === step.id ? "step" : undefined
+                    }
+                    aria-posinset={index + 1}
+                    aria-setsize={steps.length}
+                    aria-selected={stepper.current.id === step.id}
+                    className="flex size-10 items-center justify-center rounded-full p-0 hover:bg-transparent"
+                    onClick={() => handleStepChange(step.id)}
+                  >
+                    <StepIcon
+                      state={getStepState(step.id)}
+                      className="w-4 h-4"
+                    />
+                  </Button>
+                </motion.div>
+                <motion.span
+                  initial="idle"
+                  animate={getStepState(step.id)}
+                  variants={buttonVariants}
+                  transition={{ duration: 0.2 }}
                   className={`text-sm font-bold font-chivo-mono ${
                     getStepState(step.id) === "idle" &&
                     stepper.current.id !== step.id
@@ -159,10 +219,16 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
                   }`}
                 >
                   {step.title}
-                </span>
-              </li>
+                </motion.span>
+              </motion.li>
               {index < array.length - 1 && (
-                <div className="flex">
+                <motion.div
+                  className="flex"
+                  custom={index}
+                  initial="hidden"
+                  animate="visible"
+                  variants={separatorVariants}
+                >
                   <div className="flex justify-center pl-5">
                     <Separator
                       orientation="vertical"
@@ -173,17 +239,25 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
                       }`}
                     />
                   </div>
-                </div>
+                </motion.div>
               )}
             </React.Fragment>
           ))}
         </ol>
       </nav>
 
-      {/* Download Button */}
-      <div className="pt-10">
+      <motion.div
+        className="pt-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          delay: stepper.all.length * 0.08 + 0.2,
+          duration: 0.3,
+          ease: "easeOut",
+        }}
+      >
         <DownloadButton />
-      </div>
+      </motion.div>
     </div>
   );
 }

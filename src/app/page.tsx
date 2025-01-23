@@ -16,6 +16,7 @@ import { VerticalStepper } from "@/components/stepper/VerticalStepper";
 import { ApiKeyModal } from "@/components/ApiKeyModal";
 import { ContactForm } from "@/components/ContactForm";
 import { useGeneration } from "@/context/GenerationContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const { currentStep: activeStepId } = useGeneration();
@@ -23,14 +24,73 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-4">
       <div className="w-full max-w-[460px] flex flex-col gap-4">
-        <div className="flex justify-end">
+        <motion.div
+          className="flex justify-end"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            delay: 0.6,
+            duration: 0.4,
+            ease: "easeOut",
+          }}
+        >
           <ApiKeyModal />
-        </div>
-        <div className="bg-white rounded-3xl shadow-[0px_1px_4px_0px_rgba(12,12,13,0.05)] border border-gray-200 w-full h-full">
-          <div className="p-10 h-full">
-            {!activeStepId ? <ContactForm /> : <VerticalStepper />}
-          </div>
-        </div>
+        </motion.div>
+        <motion.div
+          layout
+          layoutId="container"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: [0.645, 0.045, 0.355, 1.0],
+            layout: {
+              duration: 0.4,
+              ease: [0.645, 0.045, 0.355, 1.0],
+            },
+          }}
+          className="bg-white rounded-3xl shadow-[0px_1px_4px_0px_rgba(12,12,13,0.05)] border border-gray-200 w-full h-full"
+        >
+          <motion.div
+            layout
+            className="p-10 h-full"
+            transition={{
+              layout: {
+                duration: 0.4,
+                ease: [0.645, 0.045, 0.355, 1.0],
+              },
+            }}
+          >
+            <AnimatePresence mode="wait">
+              {!activeStepId ? (
+                <motion.div
+                  key="contact-form"
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.25,
+                    ease: "easeOut",
+                  }}
+                >
+                  <ContactForm />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="vertical-stepper"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.25,
+                    ease: "easeOut",
+                  }}
+                >
+                  <VerticalStepper />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

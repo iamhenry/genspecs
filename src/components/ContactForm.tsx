@@ -30,6 +30,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useGeneration } from "@/context/GenerationContext";
 import { EightBitSpinner } from "@/components/ui/EightBitSpinner";
+import { motion } from "framer-motion";
 
 const formSchema = z.object({
   projectName: z.string().min(2, {
@@ -151,7 +152,16 @@ export function ContactForm() {
             )}
           />
         </div>
-        <div className="self-stretch">
+        <motion.div
+          className="self-stretch"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.3,
+            ease: "easeOut",
+          }}
+        >
           <Button
             type="submit"
             className="w-full bg-black hover:bg-black/90 text-white disabled:bg-zinc-200 disabled:text-zinc-500 rounded-full p-3 h-auto font-normal text-xs font-chivo-mono"
@@ -161,7 +171,7 @@ export function ContactForm() {
           >
             {isSubmitting ? <EightBitSpinner /> : "Generate"}
           </Button>
-        </div>
+        </motion.div>
       </form>
     </Form>
   );
