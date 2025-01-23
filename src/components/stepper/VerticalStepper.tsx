@@ -106,6 +106,11 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
     return Object.values(documents).every((doc) => doc.status === "accepted");
   }, [documents]);
 
+  // Check if any document has an error
+  const hasError = React.useMemo(() => {
+    return Object.values(documents).some((doc) => doc.status === "error");
+  }, [documents]);
+
   // Get step state based on document status
   const getStepState = (stepId: string): StepIconState => {
     const docType = stepId as DocumentType;
@@ -262,7 +267,7 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
         }}
       >
         <DownloadButton />
-        {areAllDocumentsCompleted && (
+        {(areAllDocumentsCompleted || hasError) && (
           <Button
             variant="link"
             className="text-xs font-chivo-mono text-muted-foreground hover:text-foreground"
