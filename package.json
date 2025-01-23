@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "vercel-build": "SKIP_ENV_VALIDATION=1 next build",
     "start": "next start",
     "lint": "next lint",
     "test": "dotenv -e .env.test -- vitest",
