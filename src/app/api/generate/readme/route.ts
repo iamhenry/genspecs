@@ -7,7 +7,6 @@
 
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { GenerationState } from '@/types/generation';
 
 export async function POST(request: Request) {
   try {
