@@ -181,6 +181,10 @@ Integrate LLM functionality and implement document generation pipeline.
       - [ ] remove back/next buttons from the stepper
       - [ ] fix api dialogue button to respect the saved state of the api key
         - [ ] create unit tests for the api key context based off production code
+      - [ ] Card container is not huggin contents and has a fixed height
+      - [ ] type styles are off from mock
+      - [ ] make all buttons consistent  (rounded corners, colors)
+      - [ ] dialog input field to have a border
 
 - [x] 3.2. Implement Download Logic
   - File: `src/lib/download.ts`
