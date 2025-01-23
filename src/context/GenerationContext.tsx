@@ -44,6 +44,7 @@ interface GenerationContextType extends GenerationState {
   updateProjectDetails: (
     updates: Partial<GenerationState["projectDetails"]>
   ) => void;
+  reset: () => void;
 }
 
 const STORAGE_KEY = "generation_state";
@@ -405,6 +406,10 @@ export function GenerationProvider({
     }));
   };
 
+  const reset = () => {
+    setState(initialState);
+  };
+
   return (
     <GenerationContext.Provider
       value={{
@@ -415,6 +420,7 @@ export function GenerationProvider({
         acceptDocument,
         regenerateDocument,
         updateProjectDetails,
+        reset,
       }}
     >
       {children}

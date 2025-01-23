@@ -31,6 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useGeneration } from "@/context/GenerationContext";
 import { EightBitSpinner } from "@/components/ui/EightBitSpinner";
 import { motion } from "framer-motion";
+import { useApiKey } from "@/context/ApiKeyContext";
 
 const formSchema = z.object({
   projectName: z.string().min(2, {
@@ -46,6 +47,7 @@ const formSchema = z.object({
 
 export function ContactForm() {
   const { updateProjectDetails, setCurrentStep } = useGeneration();
+  const { isValid: isApiKeyValid } = useApiKey();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -166,7 +168,10 @@ export function ContactForm() {
             type="submit"
             className="w-full bg-black hover:bg-black/90 text-white disabled:bg-zinc-200 disabled:text-zinc-500 rounded-full p-3 h-auto font-normal text-xs font-chivo-mono"
             disabled={
-              isSubmitting || !form.formState.isDirty || !form.formState.isValid
+              isSubmitting ||
+              !form.formState.isDirty ||
+              !form.formState.isValid ||
+              !isApiKeyValid
             }
           >
             {isSubmitting ? <EightBitSpinner /> : "Generate"}

@@ -99,7 +99,12 @@ const separatorVariants = {
 export function VerticalStepper({ onChange }: VerticalStepperProps) {
   const stepper = useStepper();
   const currentIndex = utils.getIndex(stepper.current.id);
-  const { documents, setCurrentStep, updateDocument } = useGeneration();
+  const { documents, setCurrentStep, updateDocument, reset } = useGeneration();
+
+  // Check if all documents are completed
+  const areAllDocumentsCompleted = React.useMemo(() => {
+    return Object.values(documents).every((doc) => doc.status === "accepted");
+  }, [documents]);
 
   // Get step state based on document status
   const getStepState = (stepId: string): StepIconState => {
@@ -247,7 +252,7 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
       </nav>
 
       <motion.div
-        className="pt-10"
+        className="pt-10 flex flex-col gap-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -257,6 +262,18 @@ export function VerticalStepper({ onChange }: VerticalStepperProps) {
         }}
       >
         <DownloadButton />
+        {areAllDocumentsCompleted && (
+          <Button
+            variant="link"
+            className="text-xs font-chivo-mono text-muted-foreground hover:text-foreground"
+            onClick={() => {
+              reset();
+              setCurrentStep("");
+            }}
+          >
+            Reset and start over
+          </Button>
+        )}
       </motion.div>
     </div>
   );
