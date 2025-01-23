@@ -67,7 +67,13 @@
   - [ ] Document loading states
   - [ ] Progress stepper animations
 
-### Milestone 4.2: UX Improvements
+### Milestone 4.2: UI Refinements
+- [ ] Fix UI Issues
+  - [ ] Remove back/next buttons from stepper
+  - [ ] Fix card container height to hug contents
+  - [ ] Update type styles to match mock
+  - [ ] Make button styles consistent (rounded corners, colors)
+  - [ ] Add border to dialog input field
 - [x] Implement error feedback system
 - [x] Add success notifications
 - [x] Create loading indicators
@@ -85,24 +91,6 @@
 - [x] Implement comprehensive download testing
 - [x] Enhance testing documentation
 
-
-## Total Estimated Timeline: 4-5 weeks
-
-### Risk Factors
-1. API Integration Complexity
-   - OpenRouter API reliability
-   - Rate limiting considerations
-   - Error handling edge cases
-
-2. State Management
-   - Local storage limitations
-   - Data persistence reliability
-   - Browser compatibility
-
-3. Performance
-   - Document rendering performance
-   - Local storage size constraints
-   - Markdown rendering optimization
 
 ### Success Metrics
 1. Document Generation
