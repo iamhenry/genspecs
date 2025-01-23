@@ -189,6 +189,7 @@ Integrate LLM functionality and implement document generation pipeline.
       - [x] add a "Reset" link below the stepper download button for when the user has completed the generation
         - [x] it resets all the data except the api key
       - [ ] hide logs from the console for production
+      - [ ] add reset link to appear if there was an error during the generation process
 
 - [x] 3.2. Implement Download Logic
   - File: `src/lib/download.ts`

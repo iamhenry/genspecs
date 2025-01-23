@@ -9,6 +9,7 @@ export interface DocumentGenerationConfig {
   userPrompt: string;
   dependencies?: GeneratorDependency[];
   apiKey: string;
+  signal?: AbortSignal;
 }
 
 export async function handleDocumentGeneration(
