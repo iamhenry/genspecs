@@ -91,6 +91,24 @@ export default function Home() {
             </AnimatePresence>
           </motion.div>
         </motion.div>
+        <motion.h3
+          className="text-center text-sm text-muted-foreground"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            delay: 0.8, // Appears after contact form and API key button
+            duration: 0.4,
+            ease: "easeOut",
+          }}
+        >
+          Made by{" "}
+          <a
+            href="https://x.com/soyhenryxyz"
+            className="hover:text-foreground transition-colors"
+          >
+            @soyhenryxyz
+          </a>
+        </motion.h3>
       </div>
     </div>
   );

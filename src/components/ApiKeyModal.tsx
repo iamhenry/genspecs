@@ -101,7 +101,7 @@ export function ApiKeyModal() {
         <Button
           variant={isValid ? "outline" : "default"}
           className={cn(
-            "rounded-full",
+            "rounded-full font-chivo-mono",
             isValid
               ? "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
               : "bg-black hover:bg-black/90 text-white"
