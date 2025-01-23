@@ -46,6 +46,7 @@ export async function handleDocumentGeneration(
         "HTTP-Referer": "https://genspecs.vercel.app",
         "X-Title": "GenSpecs",
       },
+      timeout: 25000, // 25 second timeout to stay under Vercel's 30s limit
     });
 
     // Generate content

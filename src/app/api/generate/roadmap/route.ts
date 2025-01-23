@@ -3,13 +3,13 @@ import { generateRoadmapSystemPrompt } from '@/lib/generators/RoadmapGenerator';
 import { DocumentState, GenerationState } from '@/types/generation';
 import { NextResponse } from 'next/server';
 
-const MAX_RETRIES = 3;
-const INITIAL_TIMEOUT = 30000; // 30 seconds
+const MAX_RETRIES = 2;
+const INITIAL_TIMEOUT = 20000; // 20 seconds
 
 async function generateWithRetry(config: DocumentGenerationConfig, retryCount = 0): Promise<Response> {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), INITIAL_TIMEOUT * (retryCount + 1));
+    const timeoutId = setTimeout(() => controller.abort(), INITIAL_TIMEOUT);
 
     const response = await handleDocumentGeneration({
       ...config,
@@ -44,6 +44,13 @@ export async function POST(request: Request) {
       apiKey: string
     } = await clonedRequest.json();
 
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'API key is required' },
+        { status: 400 }
+      );
+    }
+
     console.log('Request parsed successfully', {
       projectName: projectDetails.name,
       userStoriesCount: projectDetails.userStories?.length,
@@ -77,32 +84,30 @@ Ensure proper sequencing of tasks and clear phase transitions.`,
     return await generateWithRetry(config);
   } catch (error) {
     console.error('Failed to generate Roadmap. Full error:', error);
-    console.error('Error details:', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined,
-      status: error instanceof Response ? error.status : undefined,
-      headers: error instanceof Response ? Object.fromEntries(error.headers?.entries() || []) : undefined
-    });
     
-    // Handle non-JSON responses
-    if (error instanceof Response) {
+    // Ensure we always return a proper JSON response
+    let errorMessage = 'Failed to generate Roadmap';
+    let statusCode = 500;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (error instanceof Response) {
+      statusCode = error.status;
       try {
-        const errorText = await error.text();
-        return NextResponse.json(
-          { error: errorText },
-          { status: error.status }
-        );
-      } catch (e) {
-        return NextResponse.json(
-          { error: 'Failed to generate Roadmap: Server error' },
-          { status: 500 }
-        );
+        const errorData = await error.json();
+        errorMessage = errorData.error || errorMessage;
+      } catch {
+        try {
+          errorMessage = await error.text();
+        } catch {
+          errorMessage = 'Failed to generate Roadmap: Server error';
+        }
       }
     }
-    
+
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to generate Roadmap' },
-      { status: 500 }
+      { error: errorMessage },
+      { status: statusCode }
     );
   }
 } 
