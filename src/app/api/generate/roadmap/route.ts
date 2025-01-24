@@ -3,8 +3,11 @@ import { generateRoadmapSystemPrompt } from '@/lib/generators/RoadmapGenerator';
 import { DocumentState, GenerationState } from '@/types/generation';
 import { NextResponse } from 'next/server';
 
+// Add Edge runtime configuration
+export const runtime = 'edge';
+
 const MAX_RETRIES = 2;
-const INITIAL_TIMEOUT = 20000; // 20 seconds
+const INITIAL_TIMEOUT = 25000; // 25 seconds
 
 async function generateWithRetry(config: DocumentGenerationConfig, retryCount = 0): Promise<Response> {
   try {
