@@ -132,7 +132,7 @@ export function ApiKeyModal() {
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel className="text-neutral-800 text-sm font-medium">
-                    API Key
+                    API Key (Locally Stored)
                   </FormLabel>
                   <FormControl>
                     <Input

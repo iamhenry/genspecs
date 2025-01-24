@@ -110,6 +110,14 @@ export default function Home() {
             className="hover:text-foreground transition-colors"
           >
             @soyhenryxyz
+          </a>{" "}
+          <br />
+          Code on{" "}
+          <a
+            href="https://github.com/iamhenry/genspecs"
+            className="hover:text-foreground transition-colors"
+          >
+            Github
           </a>
         </motion.h3>
       </div>
