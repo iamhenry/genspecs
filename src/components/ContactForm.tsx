@@ -95,7 +95,7 @@ export function ContactForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="h-full flex flex-col justify-between"
       >
-        <div className="self-stretch flex-col justify-start items-start gap-8 flex">
+        <div className="self-stretch flex-col justify-start items-start gap-8 flex pb-6">
           <FormField
             control={form.control}
             name="projectName"
@@ -145,7 +145,7 @@ export function ContactForm() {
                   <Textarea
                     placeholder="Eg. As a user, I want to [feature] so that [benefit]"
                     {...field}
-                    className="self-stretch min-h-[300px] border-0 bg-white p-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base font-normal leading-7 font-sans"
+                    className="self-stretch min-h-[120px] border-0 bg-white p-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-base font-normal leading-7 font-sans"
                     disabled={isSubmitting}
                   />
                 </FormControl>

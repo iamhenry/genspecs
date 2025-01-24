@@ -25,7 +25,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-4">
       <div className="w-full max-w-[460px] flex flex-col gap-4">
         <motion.div
-          className="flex justify-end"
+          className="flex justify-between items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
@@ -34,6 +34,9 @@ export default function Home() {
             ease: "easeOut",
           }}
         >
+          <h5 className="text-lg font-bold text-center font-chivo-mono">
+            Genspecs
+          </h5>
           <ApiKeyModal />
         </motion.div>
         <motion.div
