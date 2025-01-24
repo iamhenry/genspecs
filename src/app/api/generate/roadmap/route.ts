@@ -21,12 +21,20 @@ async function generateWithRetry(config: DocumentGenerationConfig, retryCount = 
   } catch (error) {
     console.error(`Attempt ${retryCount + 1} failed:`, error);
 
-    if (retryCount < MAX_RETRIES && (error instanceof Error && error.name === 'AbortError' || error instanceof Response && error.status === 504)) {
-      console.log(`Retrying... Attempt ${retryCount + 2} of ${MAX_RETRIES + 1}`);
+    // Only retry on timeout errors
+    if (retryCount < MAX_RETRIES && error instanceof Error && error.name === 'AbortError') {
+      // Add exponential backoff
+      const backoffTime = Math.pow(2, retryCount) * 1000;
+      console.log(`Retrying in ${backoffTime}ms... Attempt ${retryCount + 2} of ${MAX_RETRIES + 1}`);
+      await new Promise(resolve => setTimeout(resolve, backoffTime));
       return generateWithRetry(config, retryCount + 1);
     }
 
-    throw error;
+    // For other errors, return a meaningful response
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Failed to generate Roadmap' },
+      { status: 500 }
+    );
   }
 }
 
@@ -110,4 +118,4 @@ Ensure proper sequencing of tasks and clear phase transitions.`,
       { status: statusCode }
     );
   }
-} 
+}

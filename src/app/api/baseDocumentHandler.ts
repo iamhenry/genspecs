@@ -46,8 +46,17 @@ export async function handleDocumentGeneration(
         "HTTP-Referer": "https://genspecs.vercel.app",
         "X-Title": "GenSpecs",
       },
-      timeout: 25000, // 25 second timeout to stay under Vercel's 30s limit
+      timeout: 20000, // 20 second timeout with buffer for Vercel's 30s limit
     });
+
+    // Validate payload size
+    const totalContentLength = config.systemPrompt.length + config.userPrompt.length;
+    if (totalContentLength > 15000) {
+      return NextResponse.json(
+        { error: 'Prompt too large. Please reduce content size.' },
+        { status: 400 }
+      );
+    }
 
     // Generate content
     const response = await client.chat.completions.create({
@@ -73,4 +82,4 @@ export async function handleDocumentGeneration(
       { status: 500 }
     );
   }
-} 
+}

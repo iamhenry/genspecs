@@ -35,6 +35,13 @@ export class RoadmapGenerator extends BaseDocumentGenerator {
 
   protected generateUserPrompt(): string {
     const bomState = this.dependencies[0].state;
+    
+    // Process BOM content in chunks
+    const maxBomLength = 5000;
+    const bomContent = bomState.content.length > maxBomLength
+      ? `${bomState.content.substring(0, maxBomLength)}... [truncated]`
+      : bomState.content;
+
     return `Please generate a Project Roadmap for my project with these details:
 
 Project Name: ${this.projectDetails.name}
@@ -42,11 +49,12 @@ Description: ${this.projectDetails.description}
 User Stories:
 ${this.projectDetails.userStories.map(story => `- ${story}`).join('\n')}
 
-BOM Content:
-${bomState.content}
+Key BOM Components:
+${bomContent}
 
 Generate the Roadmap following the structure exactly as specified in the system prompt.
-Ensure proper sequencing of tasks and clear phase transitions.`;
+Focus on the most critical components and phase transitions.
+If BOM content was truncated, prioritize the most important elements.`;
   }
 
   constructor(
@@ -62,4 +70,4 @@ Ensure proper sequencing of tasks and clear phase transitions.`;
 
     super(config, projectDetails, dependencies);
   }
-} 
+}
