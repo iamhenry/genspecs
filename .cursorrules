@@ -350,8 +350,8 @@ IMPORTANT: For the command used, reply with a written confirmation.
 ==========================
 # Git Usage
 ==========================
-Use concise but context-rich messages
-Use the following prefixes for commit messages
+IMPORTANT: Use concise but context-rich messages and bullet list out each change and a brief summary of the changes
+Use the following prefixes for commit messages:
 - "fix" for bug fixes
 - "feat" for new features
 - "perf" for performance improvements
