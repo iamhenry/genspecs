@@ -34,9 +34,9 @@ export default function Home() {
             ease: "easeOut",
           }}
         >
-          <h5 className="text-lg font-bold text-center font-chivo-mono">
-            Genspecs
-          </h5>
+          <h4 className="text-xl font-bold text-center font-chivo-mono">
+            GenSpecs
+          </h4>
           <ApiKeyModal />
         </motion.div>
         <motion.div
